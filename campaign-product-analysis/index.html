@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campaign & Product Analysis - Josua Alexander Naibaho</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -12,96 +14,228 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #fef9e7, #e8f0fe);
+            /* SAMA DENGAN PORTFOLIO UTAMA */
+            background: radial-gradient(circle, #E0FFFF, #B0C4DE);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             color: #2c3e50;
         }
 
+        /* ---------- HEADER ---------- */
         .project-header {
             background: rgba(44, 62, 80, 0.9);
             backdrop-filter: blur(10px);
             color: white;
-            padding: 20px 30px;
+            padding: 15px 30px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
         .project-header h1 {
             margin: 0;
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
         .project-header p {
-            margin: 8px 0 0;
+            margin: 5px 0 0;
             opacity: 0.9;
+            font-size: 0.95rem;
         }
 
         .back-link {
             display: inline-block;
-            margin-top: 15px;
+            margin-top: 10px;
             color: #FFD700;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s;
+            font-size: 0.9rem;
         }
 
         .back-link:hover {
             color: white;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
+        /* ---------- WRAPPER SIDEBAR + KONTEN ---------- */
+        .content-wrapper {
+            display: flex;
             flex: 1;
+            align-items: flex-start; /* jangan stretch penuh */
+            margin-top: 20px; /* sedikit jarak dari header */
+        }
+
+        /* ---------- SIDEBAR KIRI (sticky, dengan dropdown) ---------- */
+        .sidebar-left {
+            width: 260px;
+            flex-shrink: 0;
+            margin-left: 20px;
+            position: sticky;
+            top: 90px; /* di bawah header */
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .sidebar-left details {
+            /* menghilangkan panah bawaan */
+        }
+
+        .sidebar-left summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 15px 18px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1a252f;
+            background: rgba(44, 62, 80, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+        }
+
+        .sidebar-left summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .sidebar-left summary:hover {
+            background: rgba(44, 62, 80, 0.15);
+        }
+
+        .sidebar-left summary::after {
+            content: "\f107"; /* chevron down */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            transition: transform 0.2s;
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-content {
+            padding: 15px 18px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .sidebar-content h3 {
+            margin: 0 0 8px;
+            font-size: 1.2rem;
+            color: #1a252f;
+        }
+
+        .sidebar-content p {
+            margin: 0 0 12px;
+        }
+
+        .sidebar-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .sidebar-tags span {
+            background: rgba(44, 62, 80, 0.1);
+            color: #2c3e50;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .sidebar-tools {
+            background: rgba(44, 62, 80, 0.03);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-top: 10px;
+        }
+
+        .sidebar-tools h4 {
+            margin: 0 0 8px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #1a252f;
+        }
+
+        .sidebar-tools ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .sidebar-tools li {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+        }
+
+        /* ---------- KONTEN UTAMA ---------- */
+        .main-content {
+            flex: 1;
+            padding: 0 30px 30px 30px;
+            max-width: 900px;
+            margin: 0 auto;
             width: 100%;
         }
 
+        /* Kartu presentasi yang lebih polos */
         .presentation-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            padding: 30px;
-            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 16px;
+            padding: 20px 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); /* ringan */
         }
 
         .presentation-card h2 {
-            margin-top: 0;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
+            margin: 0 0 15px;
+            font-size: 1.5rem;
             color: #1a252f;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            padding-bottom: 10px;
         }
 
         .slide-embed {
             width: 100%;
-            height: 500px;
+            height: 450px;
             border: 1px solid #ddd;
-            border-radius: 12px;
-            margin: 20px 0;
+            border-radius: 10px;
+            margin: 15px 0;
+            background: white;
         }
 
         .btn {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 8px 18px;
             background: #2c3e50;
             color: white;
             text-decoration: none;
-            border-radius: 25px;
-            transition: background 0.3s, transform 0.2s;
+            border-radius: 20px;
+            font-size: 0.9rem;
             margin: 5px;
-            font-weight: 500;
+            transition: background 0.2s;
         }
 
         .btn:hover {
             background: #1a252f;
-            transform: translateY(-2px);
         }
 
         .btn-outline {
             background: transparent;
-            border: 2px solid #2c3e50;
+            border: 1px solid #2c3e50;
             color: #2c3e50;
         }
 
@@ -110,38 +244,30 @@
             color: white;
         }
 
-        .description {
-            margin: 25px 0;
-            line-height: 1.7;
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 15px 0;
-        }
-
-        .tag {
-            background: rgba(44, 62, 80, 0.1);
-            color: #2c3e50;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-        }
-
+        /* ---------- FOOTER ---------- */
         .footer {
             text-align: center;
             padding: 20px;
             background: rgba(44, 62, 80, 0.05);
-            color: #777;
-            font-size: 0.9rem;
-            border-top: 1px solid #eee;
+            color: #555;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
+        /* ---------- RESPONSIVE ---------- */
         @media (max-width: 768px) {
-            .slide-embed {
-                height: 300px;
+            .content-wrapper {
+                flex-direction: column;
+            }
+            .sidebar-left {
+                position: relative;
+                top: 0;
+                width: 100%;
+                margin: 0 0 20px 0;
+                border-radius: 0;
+            }
+            .main-content {
+                padding: 0 15px 20px;
             }
         }
     </style>
@@ -154,34 +280,54 @@
         <a href="https://josuaalexander02.github.io/" class="back-link">← Kembali ke Portofolio</a>
     </header>
 
-    <main class="container">
-        <div class="presentation-card">
-            <h2>📊 Presentasi Analisis</h2>
-            <div class="description">
-                <p>Proyek ini mengevaluasi efektivitas kampanye pemasaran serta menganalisis performa halaman produk (product page) untuk memberikan rekomendasi strategis berdasarkan data. Menggabungkan analisis kuantitatif dan visualisasi data.</p>
-            </div>
+    <div class="content-wrapper">
+        <!-- SIDEBAR KIRI DENGAN DROPDOWN -->
+        <aside class="sidebar-left">
+            <details open>
+                <summary>📋 Project Info</summary>
+                <div class="sidebar-content">
+                    <h3>Tokobli E-Commerce</h3>
+                    <p>Evaluasi efektivitas kampanye dan analisis performa halaman produk menggunakan data.</p>
+                    
+                    <!-- Proses / Tags -->
+                    <div class="sidebar-tags">
+                        <span>Data Cleaning</span>
+                        <span>Data Manipulation</span>
+                        <span>Data Visualization</span>
+                        <span>A/B Testing</span>
+                    </div>
 
-            <!-- GANTI ID_SLIDE_KAMU dengan ID asli Google Slides -->
-            <iframe class="slide-embed" 
-                    src="https://docs.google.com/presentation/d/ID_SLIDE_KAMU/embed?start=false&loop=false&delayms=3000" 
-                    allowfullscreen>
-            </iframe>
+                    <!-- Tools Used -->
+                    <div class="sidebar-tools">
+                        <h4><i class="fas fa-tools"></i> Tools Used</h4>
+                        <ul>
+                            <li><i class="fas fa-file-excel"></i> Excel</li>
+                            <li><i class="fas fa-chart-bar"></i> Google Sheets</li>
+                            <li><i class="fab fa-python"></i> Python</li>
+                            <li><i class="fas fa-chart-pie"></i> Tableau</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+        </aside>
 
-            <div style="text-align: center; margin-top: 15px;">
-                <a href="https://docs.google.com/presentation/d/ID_SLIDE_KAMU/edit?usp=sharing" target="_blank" class="btn">Buka di Google Slides</a>
-                <a href="#" class="btn btn-outline">Unduh PDF (segera)</a>
-            </div>
+        <!-- KONTEN UTAMA: PRESENTASI -->
+        <main class="main-content">
+            <div class="presentation-card">
+                <h2>📊 Presentasi Analisis</h2>
+                <!-- GANTI ID_SLIDE_KAMU dengan ID asli Google Slides -->
+                <iframe class="slide-embed" 
+                        src="https://docs.google.com/presentation/d/ID_SLIDE_KAMU/embed?start=false&loop=false&delayms=3000" 
+                        allowfullscreen>
+                </iframe>
 
-            <div class="tags">
-                <span class="tag">Excel</span>
-                <span class="tag">Google Sheets</span>
-                <span class="tag">Data Cleaning</span>
-                <span class="tag">Exploratory Data Analysis</span>
-                <span class="tag">Visualization</span>
-                <span class="tag">Product Analysis</span>
+                <div style="text-align: center; margin-top: 10px;">
+                    <a href="https://docs.google.com/presentation/d/ID_SLIDE_KAMU/edit?usp=sharing" target="_blank" class="btn">Buka di Google Slides</a>
+                    <a href="#" class="btn btn-outline">Unduh PDF (segera)</a>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <footer class="footer">
         © 2026 Josua Alexander Naibaho. Dibuat dengan ❤️ untuk portofolio.
