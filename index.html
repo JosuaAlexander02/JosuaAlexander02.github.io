@@ -143,7 +143,7 @@
             font-size: 0.9rem;
         }
 
-        /* ---------- KONTEN UTAMA (diperlebar) ---------- */
+        /* ---------- KONTEN UTAMA ---------- */
         .konten {
             margin-left: 300px;
             padding: 40px 40px 20px;
@@ -151,12 +151,12 @@
             color: #2c3e50;
             transition: margin-left 0.3s ease;
             flex: 1;
-            max-width: 1200px;           /* tambahan max-width untuk layar besar */
+            max-width: 1200px;
             margin-right: auto;
         }
 
         body.sidebar-hidden .konten {
-            margin-left: auto;          /* jika sidebar hilang, konten bisa di tengah */
+            margin-left: auto;
             margin-right: auto;
             max-width: 1200px;
             padding-left: 20px;
@@ -173,14 +173,14 @@
             margin-bottom: 30px;
         }
 
-        /* ---------- ABOUT ME (lebar ikut max-width konten) ---------- */
+        /* ---------- ABOUT ME ---------- */
         .about-section {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px 35px;
             margin: 0 auto 40px;
-            max-width: 900px;            /* lebih lebar */
+            max-width: 900px;
             text-align: left;
             line-height: 1.7;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -209,7 +209,7 @@
             background: rgba(255,255,255,0.5);
             border-radius: 12px;
             padding: 12px 18px;
-            border-left: 4px solid #2c3e50;   /* aksen hidup */
+            border-left: 4px solid #2c3e50;
         }
 
         .tools-column h4 {
@@ -237,9 +237,9 @@
             width: 1.2rem;
         }
 
-        /* ---------- RECENT WORK & SERTIFIKAT DROPDOWN (diperlebar) ---------- */
+        /* ---------- DROPDOWN ---------- */
         .dropdown-container {
-            max-width: 1000px;            /* lebih lebar dari sebelumnya */
+            max-width: 1000px;
             margin: 0 auto 40px;
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
@@ -286,7 +286,6 @@
             transform: rotate(180deg);
         }
 
-        /* Grid proyek & sertifikat */
         .projects-grid,
         .certificate-grid {
             display: flex;
@@ -296,14 +295,14 @@
             padding: 20px 25px;
         }
 
-        /* Kartu Proyek (sedikit lebih lebar) */
+        /* Kartu Proyek */
         .project-card {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             overflow: hidden;
-            width: 320px;                /* lebih lebar */
+            width: 320px;
             transition: transform 0.3s, box-shadow 0.3s;
             text-align: left;
             display: flex;
@@ -342,6 +341,7 @@
             margin: 0 0 12px;
         }
 
+        /* Proses analisis */
         .project-tags {
             display: flex;
             flex-wrap: wrap;
@@ -358,6 +358,45 @@
             font-weight: 500;
         }
 
+        /* Tools Used di kartu */
+        .project-tools {
+            background: rgba(44, 62, 80, 0.05);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: #2c3e50;
+        }
+
+        .project-tools h4 {
+            margin: 0 0 6px;
+            font-size: 0.85rem;
+            color: #1a252f;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .project-tools ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .project-tools li {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .project-tools li i {
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+
         .project-link {
             display: inline-block;
             text-decoration: none;
@@ -368,16 +407,17 @@
             font-size: 0.9rem;
             transition: background 0.3s;
             text-align: center;
+            margin-top: auto;
         }
 
         .project-link:hover {
             background: #1a252f;
         }
 
-        /* ---------- SERTIFIKAT CARD (lebih hidup) ---------- */
+        /* ---------- SERTIFIKAT ---------- */
         .certificate-card {
-            background: linear-gradient(135deg, #fef9e7, #fce4ec); /* warna cerah lembut */
-            border-left: 6px solid #2c3e50;                         /* aksen kiri */
+            background: linear-gradient(135deg, #fef9e7, #fce4ec);
+            border-left: 6px solid #2c3e50;
             border-radius: 12px;
             padding: 15px 20px;
             width: 280px;
@@ -571,20 +611,31 @@
             <div class="projects-grid">
                 <!-- Proyek 1 -->
                 <div class="project-card">
-                 <img src="assets/images/cover-project-1.png" alt="Cover Campaign Product Analysis">
+                    <img src="assets/images/cover-project-1.png" alt="Cover Campaign Product Analysis">
                     <div class="project-info">
                         <h3>Tokobli E-Commerce</h3>
                         <p>The goal of this project was to find out which campaign was the most profitable among other twin date campaigns, 
-                        as well as to analyze whether the new layout and the addition of the “Buy Now” button affected customer spending..</p>
+                        as well as to analyze whether the new layout and the addition of the “Buy Now” button affected customer spending.</p>
                         <div class="project-tags">
                             <span>Data Cleaning</span>
                             <span>Data Manipulation</span>
                             <span>Data Visualization</span>
                             <span>A/B Testing</span>
                         </div>
-                        <a href="#" class="project-link">Lihat Detail</a>
+                        <!-- Tools Used -->
+                        <div class="project-tools">
+                            <h4><i class="fas fa-tools"></i> Tools Used</h4>
+                            <ul>
+                                <li><i class="fas fa-file-excel"></i> Excel</li>
+                                <li><i class="fas fa-chart-bar"></i> Google Sheets</li>
+                                <li><i class="fab fa-python"></i> Python</li>
+                                <li><i class="fas fa-chart-pie"></i> Tableau</li>
+                            </ul>
+                        </div>
+                        <a href="https://josuaalexander02.github.io/campaign-product-analysis/" class="project-link">Lihat Detail</a>
                     </div>
                 </div>
+
                 <!-- Proyek 2 -->
                 <div class="project-card">
                     <img src="https://via.placeholder.com/320x200/2c3e50/ffffff?text=Proyek+2" alt="Proyek 2">
@@ -596,9 +647,18 @@
                             <span>API</span>
                             <span>CSS</span>
                         </div>
+                        <!-- Tools Used contoh, bisa kamu sesuaikan -->
+                        <div class="project-tools">
+                            <h4><i class="fas fa-tools"></i> Tools Used</h4>
+                            <ul>
+                                <li><i class="fab fa-react"></i> React</li>
+                                <li><i class="fas fa-code"></i> VS Code</li>
+                            </ul>
+                        </div>
                         <a href="#" class="project-link">Lihat Detail</a>
                     </div>
                 </div>
+
                 <!-- Proyek 3 -->
                 <div class="project-card">
                     <img src="https://via.placeholder.com/320x200/2c3e50/ffffff?text=Proyek+3" alt="Proyek 3">
@@ -610,35 +670,37 @@
                             <span>UI/UX</span>
                             <span>Prototyping</span>
                         </div>
+                        <div class="project-tools">
+                            <h4><i class="fas fa-tools"></i> Tools Used</h4>
+                            <ul>
+                                <li><i class="fab fa-figma"></i> Figma</li>
+                            </ul>
+                        </div>
                         <a href="#" class="project-link">Lihat Detail</a>
                     </div>
                 </div>
             </div>
         </details>
 
-        <!-- SERTIFIKAT (baru) -->
+        <!-- SERTIFIKAT -->
         <details class="dropdown-container">
             <summary>📜 Sertifikat</summary>
             <div class="certificate-grid">
-                <!-- Sertifikat 1 -->
                 <div class="certificate-card">
                     <i class="fas fa-certificate"></i>
                     <h4>Data Science Professional</h4>
                     <a href="#" target="_blank">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
                 </div>
-                <!-- Sertifikat 2 -->
                 <div class="certificate-card">
                     <i class="fas fa-certificate"></i>
                     <h4>Google Data Analytics</h4>
                     <a href="#" target="_blank">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
                 </div>
-                <!-- Sertifikat 3 -->
                 <div class="certificate-card">
                     <i class="fas fa-certificate"></i>
                     <h4>Tableau Desktop Specialist</h4>
                     <a href="#" target="_blank">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
                 </div>
-                <!-- Tambahkan lebih banyak sertifikat di sini -->
             </div>
         </details>
     </main>
