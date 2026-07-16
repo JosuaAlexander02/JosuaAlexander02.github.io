@@ -64,12 +64,12 @@
         .main-area {
             flex: 1;
             padding: 40px;
-            display: flex;
-            flex-direction: column;
             background: rgba(255, 255, 255, 0.2);
             margin: 20px;
             border-radius: 16px;
             border: 1px solid rgba(255,255,255,0.3);
+            overflow-y: auto; /* agar konten panjang bisa di-scroll */
+            max-height: calc(100vh - 40px); /* mencegah overflow body */
         }
 
         .main-area h1 {
@@ -78,17 +78,19 @@
             margin: 0 0 10px;
         }
 
-        .main-area .subtitle {
+        .subtitle {
             font-size: 1.1rem;
             color: #2c3e50;
             margin-bottom: 30px;
             font-style: italic;
         }
 
+        /* Project Summary list */
         .summary-list {
             list-style: none;
             padding: 0;
             counter-reset: step;
+            margin-bottom: 40px;
         }
 
         .summary-list li {
@@ -126,6 +128,44 @@
             font-size: 0.9rem;
         }
 
+        /* Insights Section */
+        .insights-section {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(6px);
+            border-radius: 16px;
+            padding: 25px 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .insights-section h2 {
+            margin: 0 0 20px;
+            color: #1a252f;
+            border-bottom: 2px solid rgba(44, 62, 80, 0.2);
+            padding-bottom: 8px;
+        }
+
+        .insights-section h3 {
+            color: #2c3e50;
+            margin: 20px 0 10px;
+            font-size: 1.3rem;
+        }
+
+        .insights-section ul {
+            list-style-type: disc;
+            padding-left: 25px;
+            margin: 10px 0;
+        }
+
+        .insights-section li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .insights-section p {
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
@@ -142,6 +182,7 @@
             .main-area {
                 margin: 10px;
                 padding: 20px;
+                max-height: none;
             }
         }
     </style>
@@ -156,7 +197,7 @@
         </a>
     </aside>
 
-    <!-- AREA UTAMA (KONTEN PROYEK) -->
+    <!-- AREA UTAMA -->
     <main class="main-area">
         <h1>Tokobli E-Commerce</h1>
         <p class="subtitle">Project Summary</p>
@@ -168,6 +209,29 @@
             <li>Create data visualizations.</li>
             <li>Conduct hypothesis testing using A/B testing.</li>
         </ol>
+
+        <!-- INSIGHTS SECTION -->
+        <div class="insights-section">
+            <h2>📊 Insights</h2>
+
+            <h3>Campaign Performance</h3>
+            <ul>
+                <li>The highest number of transactions occurred during the <strong>12/12 campaign</strong>.</li>
+                <li>The <strong>12/12 campaign</strong> recorded the highest total number of items sold.</li>
+                <li>The highest total discount cost was incurred during the <strong>11/11 campaign</strong>.</li>
+                <li>The <strong>11/11 campaign</strong> attracted the highest number of customers.</li>
+                <li>The highest total revenue was generated during the <strong>11/11 campaign</strong>.</li>
+                <li>The <strong>12/12 campaign</strong> had the highest discount ratio.</li>
+            </ul>
+
+            <h3>Descriptive Statistics (Quantity, Discount, and Total Revenue)</h3>
+            <p><strong>Quantity:</strong> The maximum purchase quantity in a single transaction is 30 units, while the minimum is 1 unit. The average purchase quantity is 1 unit per transaction, with a median of 1.</p>
+            <p><strong>Discount:</strong> The maximum discount value is Rp900,000, and the minimum is Rp0. The average discount is Rp81,935, with a median of Rp0.</p>
+            <p><strong>Total Revenue:</strong> The maximum total revenue is Rp13,940,000, and the minimum is Rp45,000. The average total revenue is Rp4,563,207, with a median of Rp4,275,000.</p>
+
+            <h3>A/B Testing Results</h3>
+            <p>Since the p-value is &lt; 0.05, the alternative hypothesis (H1) is accepted, and the null hypothesis (H0) is rejected.</p>
+        </div>
     </main>
 
 </body>
