@@ -31,7 +31,6 @@
             align-items: flex-start;
             gap: 30px;
             flex-shrink: 0;
-            min-height: 100vh;
         }
 
         .sidebar h2 {
@@ -60,108 +59,45 @@
             transform: translateY(-2px);
         }
 
-        /* ---------- AREA UTAMA ---------- */
+        /* ---------- AREA KANAN (POLOS) ---------- */
         .main-area {
             flex: 1;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.2);
-            margin: 20px;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.3);
-            overflow-y: auto; /* agar konten panjang bisa di-scroll */
-            max-height: calc(100vh - 40px); /* mencegah overflow body */
+            padding: 40px 50px;
+            overflow-y: auto;
         }
 
         .main-area h1 {
             font-size: 2.2rem;
             color: #1a252f;
+            margin: 0 0 30px;
+        }
+
+        .main-area h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
             margin: 0 0 10px;
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-style: italic;
-        }
-
-        /* Project Summary list */
-        .summary-list {
-            list-style: none;
-            padding: 0;
-            counter-reset: step;
-            margin-bottom: 40px;
-        }
-
-        .summary-list li {
-            counter-increment: step;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(6px);
-            padding: 15px 20px;
-            margin-bottom: 12px;
-            border-radius: 12px;
-            font-size: 1rem;
-            line-height: 1.6;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-
-        .summary-list li:hover {
-            transform: translateX(5px);
-        }
-
-        .summary-list li::before {
-            content: counter(step);
-            background: #2c3e50;
-            color: white;
-            font-weight: bold;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 0.9rem;
-        }
-
-        /* Insights Section */
-        .insights-section {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(6px);
-            border-radius: 16px;
-            padding: 25px 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-
-        .insights-section h2 {
-            margin: 0 0 20px;
-            color: #1a252f;
             border-bottom: 2px solid rgba(44, 62, 80, 0.2);
-            padding-bottom: 8px;
+            padding-bottom: 5px;
         }
 
-        .insights-section h3 {
+        .main-area h3 {
+            font-size: 1.4rem;
             color: #2c3e50;
-            margin: 20px 0 10px;
-            font-size: 1.3rem;
+            margin: 25px 0 10px;
         }
 
-        .insights-section ul {
+        .main-area ul {
             list-style-type: disc;
             padding-left: 25px;
             margin: 10px 0;
         }
 
-        .insights-section li {
+        .main-area li {
             margin-bottom: 8px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        .insights-section p {
+        .main-area p {
             line-height: 1.6;
             margin: 10px 0;
         }
@@ -172,7 +108,6 @@
             }
             .sidebar {
                 width: 100%;
-                min-height: auto;
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
@@ -180,9 +115,7 @@
                 gap: 15px;
             }
             .main-area {
-                margin: 10px;
                 padding: 20px;
-                max-height: none;
             }
         }
     </style>
@@ -197,41 +130,33 @@
         </a>
     </aside>
 
-    <!-- AREA UTAMA -->
+    <!-- AREA UTAMA (POLOS) -->
     <main class="main-area">
         <h1>Tokobli E-Commerce</h1>
-        <p class="subtitle">Project Summary</p>
 
-        <ol class="summary-list">
-            <li>Clean the dataset using spreadsheet functions, specifically the filter and sort functions.</li>
-            <li>Perform basic statistical analysis such as statistical description and data distribution analysis.</li>
-            <li>Conduct EDA (Exploratory Data Analysis) processes such as univariate and multivariate analysis to gain valuable insights.</li>
-            <li>Create data visualizations.</li>
-            <li>Conduct hypothesis testing using A/B testing.</li>
-        </ol>
+        <h2>Insights</h2>
 
-        <!-- INSIGHTS SECTION -->
-        <div class="insights-section">
-            <h2>📊 Insights</h2>
+        <h3>Campaign Performance</h3>
+        <ul>
+            <li>The highest number of transactions occurred during the 12/12 campaign.</li>
+            <li>The 12/12 campaign recorded the highest total number of items sold.</li>
+            <li>The highest total discount cost was incurred during the 11/11 campaign.</li>
+            <li>The 11/11 campaign attracted the highest number of customers.</li>
+            <li>The highest total revenue was generated during the 11/11 campaign.</li>
+            <li>The 12/12 campaign had the highest discount ratio.</li>
+        </ul>
 
-            <h3>Campaign Performance</h3>
-            <ul>
-                <li>The highest number of transactions occurred during the <strong>12/12 campaign</strong>.</li>
-                <li>The <strong>12/12 campaign</strong> recorded the highest total number of items sold.</li>
-                <li>The highest total discount cost was incurred during the <strong>11/11 campaign</strong>.</li>
-                <li>The <strong>11/11 campaign</strong> attracted the highest number of customers.</li>
-                <li>The highest total revenue was generated during the <strong>11/11 campaign</strong>.</li>
-                <li>The <strong>12/12 campaign</strong> had the highest discount ratio.</li>
-            </ul>
+        <h3>Descriptive Statistics (Quantity, Discount, and Total Revenue)</h3>
+        <ul>
+            <li><strong>Quantity:</strong> The maximum purchase quantity in a single transaction is 30 units, while the minimum is 1 unit. The average purchase quantity is 1 unit per transaction, with a median of 1.</li>
+            <li><strong>Discount:</strong> The maximum discount value is Rp900,000, and the minimum is Rp0. The average discount is Rp81,935, with a median of Rp0.</li>
+            <li><strong>Total Revenue:</strong> The maximum total revenue is Rp13,940,000, and the minimum is Rp45,000. The average total revenue is Rp4,563,207, with a median of Rp4,275,000.</li>
+        </ul>
 
-            <h3>Descriptive Statistics (Quantity, Discount, and Total Revenue)</h3>
-            <p><strong>Quantity:</strong> The maximum purchase quantity in a single transaction is 30 units, while the minimum is 1 unit. The average purchase quantity is 1 unit per transaction, with a median of 1.</p>
-            <p><strong>Discount:</strong> The maximum discount value is Rp900,000, and the minimum is Rp0. The average discount is Rp81,935, with a median of Rp0.</p>
-            <p><strong>Total Revenue:</strong> The maximum total revenue is Rp13,940,000, and the minimum is Rp45,000. The average total revenue is Rp4,563,207, with a median of Rp4,275,000.</p>
-
-            <h3>A/B Testing Results</h3>
-            <p>Since the p-value is &lt; 0.05, the alternative hypothesis (H1) is accepted, and the null hypothesis (H0) is rejected.</p>
-        </div>
+        <h3>A/B Testing Results</h3>
+        <ul>
+            <li>Since the p-value is &lt; 0.05, the alternative hypothesis (H1) is accepted, and the null hypothesis (H0) is rejected.</li>
+        </ul>
     </main>
 
 </body>
