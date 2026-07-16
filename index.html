@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -93,21 +92,22 @@
             background: rgba(255,255,255,1);
         }
 
-        /* ---------- PANEL KIRI ---------- */
+        /* ---------- PANEL KIRI (SESUAIKAN DENGAN TEMA GELAP) ---------- */
         .info-panel-left {
             position: fixed;
             top: 80px;
             left: 0;
             bottom: 0;
             width: 260px;
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(15, 23, 42, 0.8);   /* navy gelap transparan */
             backdrop-filter: blur(12px);
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
             padding: 20px;
             overflow-y: auto;
             z-index: 90;
             transition: width 0.3s ease, padding 0.3s, opacity 0.3s;
-            border-right: 1px solid rgba(255,255,255,0.5);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            color: #cbd5e1;   /* teks terang */
         }
 
         body.sidebar-hidden .info-panel-left {
@@ -120,7 +120,7 @@
 
         .info-card {
             text-align: center;
-            color: #2c3e50;
+            color: #f1f5f9;
         }
 
         .info-card img {
@@ -128,48 +128,44 @@
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
             margin-bottom: 10px;
         }
 
         .info-card h3 {
             margin: 5px 0;
             font-size: 1.2rem;
+            color: #f8fafc;
         }
 
         .info-card p {
             margin: 3px 0;
             font-size: 0.9rem;
+            color: #94a3b8;
         }
 
-        /* ---------- KONTEN UTAMA (DARK THEME) ---------- */
+        /* ---------- KONTEN UTAMA (LATAR GELAP PENUH) ---------- */
         .konten {
-            margin-left: 300px;
+            margin-left: 260px;            /* mengikuti lebar sidebar */
             padding: 40px 40px 20px;
             text-align: center;
-            color: #cbd5e1;                  /* teks abu terang */
+            color: #cbd5e1;
             transition: margin-left 0.3s ease;
             flex: 1;
-            max-width: 1200px;
-            margin-right: auto;
-            /* === TEMA GELAP BARU === */
+            /* Latar belakang gelap penuh */
             background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            /* Tidak ada max-width, agar melebar penuh */
         }
 
         body.sidebar-hidden .konten {
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 1200px;
-            padding-left: 20px;
-            padding-right: 20px;
+            margin-left: 0;                /* jika sidebar hilang, konten memenuhi layar */
         }
 
-        /* Judul di konten utama */
         .konten h1 {
             font-size: 2.5rem;
             margin-bottom: 0.3em;
-            color: #f8fafc;                /* putih terang */
+            color: #f8fafc;
         }
 
         .konten > p {
@@ -177,9 +173,9 @@
             margin-bottom: 30px;
         }
 
-        /* ---------- ABOUT ME (DARK) ---------- */
+        /* ---------- ABOUT ME ---------- */
         .about-section {
-            background: rgba(255, 255, 255, 0.05);   /* sangat transparan */
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
@@ -189,11 +185,6 @@
             text-align: left;
             line-height: 1.7;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: box-shadow 0.3s;
-        }
-
-        .about-section:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
         .about-section h2 {
@@ -214,7 +205,7 @@
             background: rgba(255,255,255,0.05);
             border-radius: 12px;
             padding: 12px 18px;
-            border-left: 4px solid #38bdf8;   /* aksen biru muda */
+            border-left: 4px solid #38bdf8;
         }
 
         .tools-column h4 {
@@ -243,7 +234,7 @@
             width: 1.2rem;
         }
 
-        /* ---------- DROPDOWN (DARK) ---------- */
+        /* ---------- DROPDOWN ---------- */
         .dropdown-container {
             max-width: 1000px;
             margin: 0 auto 40px;
@@ -253,11 +244,6 @@
             border-radius: 20px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             overflow: hidden;
-            transition: box-shadow 0.3s;
-        }
-
-        .dropdown-container:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
         .dropdown-container summary {
@@ -302,7 +288,7 @@
             padding: 20px 25px;
         }
 
-        /* Kartu Proyek (DARK) */
+        /* Kartu Proyek */
         .project-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
@@ -424,7 +410,7 @@
             color: white;
         }
 
-        /* ---------- SERTIFIKAT (DARK) ---------- */
+        /* ---------- SERTIFIKAT ---------- */
         .certificate-card {
             background: linear-gradient(135deg, #1e293b, #0f172a);
             border-left: 6px solid #38bdf8;
@@ -524,7 +510,7 @@
                 max-height: 40vh;
                 overflow-y: auto;
                 border-right: none;
-                border-bottom: 1px solid rgba(255,255,255,0.5);
+                border-bottom: 1px solid rgba(255,255,255,0.2);
             }
 
             body.sidebar-hidden .info-panel-left {
@@ -536,11 +522,6 @@
             .konten {
                 margin-left: 0;
                 padding: 20px;
-                max-width: 100%;
-            }
-
-            body.sidebar-hidden .konten {
-                margin-left: 0;
             }
 
             .info-card {
@@ -569,7 +550,7 @@
         </div>
     </header>
 
-    <!-- PANEL KIRI -->
+    <!-- PANEL KIRI (SESUAI GELAP) -->
     <div class="info-panel-left" id="infoPanel">
         <div class="info-card">
             <img src="https://via.placeholder.com/150/2c3e50/ffffff?text=Foto" alt="Foto Profil">
@@ -579,7 +560,7 @@
         </div>
     </div>
 
-    <!-- KONTEN UTAMA (sekarang dark) -->
+    <!-- KONTEN UTAMA (LATAR GELAP PENUH) -->
     <main class="konten">
         <h1>Hello, Welcome to My Portfolio!</h1>
         <p>Ini adalah kumpulan projek yang sudah pernah saya kerjakan.</p>
