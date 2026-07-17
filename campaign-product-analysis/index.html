@@ -17,7 +17,6 @@
             display: flex;
             min-height: 100vh;
             color: #cbd5e1;
-            /* penting untuk sticky sidebar */
             align-items: flex-start;
         }
 
@@ -38,7 +37,6 @@
             flex-direction: column;
         }
 
-        /* Saat sidebar ditutup */
         body.sidebar-closed .sidebar-container {
             width: 0;
             box-shadow: none;
@@ -80,11 +78,11 @@
             transform: translateY(-2px);
         }
 
-        /* ---------- TOMBOL TOGGLE (fixed) ---------- */
+        /* ---------- TOMBOL TOGGLE ---------- */
         .toggle-btn {
             position: fixed;
             top: 50%;
-            left: 260px;          /* sesuai lebar sidebar */
+            left: 260px;
             transform: translate(-50%, -50%);
             width: 36px;
             height: 36px;
@@ -103,7 +101,7 @@
         }
 
         body.sidebar-closed .toggle-btn {
-            left: 20px;          /* saat sidebar tertutup, tombol ke kiri */
+            left: 20px;
         }
 
         .toggle-btn:hover {
@@ -111,10 +109,10 @@
             color: white;
         }
 
-        /* Ikon panah berubah arah */
         .toggle-btn i {
             transition: transform 0.3s;
         }
+
         body.sidebar-closed .toggle-btn i {
             transform: rotate(180deg);
         }
@@ -124,8 +122,6 @@
             flex: 1;
             padding: 40px 50px;
             overflow-y: auto;
-            transition: margin-left 0.3s;
-            /* tidak ada margin-left tambahan karena flex */
         }
 
         .main-area h1 {
@@ -174,7 +170,6 @@
             margin-bottom: 40px;
         }
 
-        /* Link file */
         .file-links {
             margin-top: 10px;
             display: flex;
@@ -200,24 +195,34 @@
             background: rgba(56, 189, 248, 0.25);
         }
 
-        /* Galeri gambar (sekarang responsif) */
+        /* ---------- GALERI GAMBAR BARU ---------- */
         .image-gallery {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-top: 15px;
-            justify-content: center;
+            /* tidak pakai justify-content agar rata kiri */
         }
 
-        .image-gallery img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
+        .image-item {
+            flex: 1 1 280px;          /* bisa tumbuh dan menyusut, basis 280px */
+            max-width: 350px;         /* batas maksimal lebar */
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            object-fit: cover;
-            flex: 1 1 280px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;  /* gambar tidak di tengah vertikal */
+            justify-content: flex-start; /* gambar tidak di tengah horizontal */
+            aspect-ratio: 16 / 10;    /* sesuaikan rasio aspek gambarmu */
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;      /* seluruh gambar tampil, tidak terpotong */
+            object-position: top left; /* posisi gambar di kiri atas wadah */
+            display: block;
         }
 
         @media (max-width: 768px) {
@@ -231,12 +236,13 @@
                 order: -1;
             }
             .toggle-btn {
-                display: none; /* di mobile, sidebar otomatis muncul tanpa toggle */
+                display: none;
             }
             .main-area {
                 padding: 20px;
             }
-            .image-gallery img {
+            .image-item {
+                flex: 1 1 100%;
                 max-width: 100%;
             }
         }
@@ -244,7 +250,7 @@
 </head>
 <body>
 
-    <!-- SIDEBAR CONTAINER (STICKY) -->
+    <!-- SIDEBAR CONTAINER -->
     <div class="sidebar-container" id="sidebarContainer">
         <aside class="sidebar">
             <h2>Tokobli<br>E-Commerce</h2>
@@ -254,7 +260,7 @@
         </aside>
     </div>
 
-    <!-- TOMBOL TOGGLE (FIXED) -->
+    <!-- TOMBOL TOGGLE -->
     <button class="toggle-btn" id="toggleSidebar">
         <i class="fas fa-chevron-left"></i>
     </button>
@@ -340,9 +346,15 @@
             <h2>Result</h2>
             <h3>Data Cleaning Process</h3>
             <div class="image-gallery">
-                <img src="../assets/images/remove-duplicate.png" alt="Data Cleaning Step 1">
-                <img src="../assets/images/missing-data.png" alt="Data Cleaning Step 2">
-                <img src="../assets/images/format-data.png" alt="Data Cleaning Step 3">
+                <div class="image-item">
+                    <img src="../assets/images/remove-duplicate.png" alt="Data Cleaning Step 1">
+                </div>
+                <div class="image-item">
+                    <img src="../assets/images/missing-data.png" alt="Data Cleaning Step 2">
+                </div>
+                <div class="image-item">
+                    <img src="../assets/images/format-data.png" alt="Data Cleaning Step 3">
+                </div>
             </div>
         </div>
     </main>
@@ -353,7 +365,6 @@
 
         toggleBtn.addEventListener('click', () => {
             body.classList.toggle('sidebar-closed');
-            // Ubah ikon panah
             const icon = toggleBtn.querySelector('i');
             if (body.classList.contains('sidebar-closed')) {
                 icon.classList.remove('fa-chevron-left');
