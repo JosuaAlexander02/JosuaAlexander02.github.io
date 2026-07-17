@@ -20,7 +20,7 @@
             align-items: flex-start;
         }
 
-        /* ---------- SIDEBAR CONTAINER (sticky) ---------- */
+        /* ---------- SIDEBAR CONTAINER ---------- */
         .sidebar-container {
             position: sticky;
             top: 0;
@@ -195,32 +195,30 @@
             background: rgba(56, 189, 248, 0.25);
         }
 
-        /* ---------- GALERI GAMBAR (UKURAN SERAGAM, TIDAK TERPOTONG) ---------- */
+        /* ---------- GALERI GAMBAR (TIDAK DATAR) ---------- */
         .image-gallery {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
             margin-top: 15px;
         }
 
-        .image-item {
-            width: 300px;               /* lebar seragam */
-            height: 200px;              /* tinggi seragam */
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-start;    /* gambar di atas */
-            justify-content: flex-start;/* gambar di kiri */
+        .image-gallery img {
+            width: 300px;                      /* ukuran seragam */
+            height: auto;
+            border-radius: 12px;
+            border: 2px solid rgba(56, 189, 248, 0.3);   /* border aksen */
+            box-shadow: 0 6px 18px rgba(56, 189, 248, 0.25), 0 2px 6px rgba(0,0,0,0.4);
+            object-fit: contain;
+            object-position: top left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+            cursor: default;
         }
 
-        .image-item img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;        /* seluruh gambar terlihat */
-            object-position: top left;  /* posisi di kiri atas, tidak di tengah */
-            display: block;
+        .image-gallery img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 24px rgba(56, 189, 248, 0.4), 0 4px 12px rgba(0,0,0,0.5);
+            border-color: rgba(56, 189, 248, 0.6);
         }
 
         @media (max-width: 768px) {
@@ -239,10 +237,9 @@
             .main-area {
                 padding: 20px;
             }
-            .image-item {
+            .image-gallery img {
                 width: 100%;
-                height: auto;
-                aspect-ratio: 16/10;    /* tetap proporsional di layar kecil */
+                max-width: 400px;
             }
         }
     </style>
@@ -345,15 +342,9 @@
             <h2>Result</h2>
             <h3>Data Cleaning Process</h3>
             <div class="image-gallery">
-                <div class="image-item">
-                    <img src="../assets/images/remove-duplicate.png" alt="Data Cleaning Step 1">
-                </div>
-                <div class="image-item">
-                    <img src="../assets/images/missing-data.png" alt="Data Cleaning Step 2">
-                </div>
-                <div class="image-item">
-                    <img src="../assets/images/format-data.png" alt="Data Cleaning Step 3">
-                </div>
+                <img src="../assets/images/remove-duplicate.png" alt="Data Cleaning Step 1">
+                <img src="../assets/images/missing-data.png" alt="Data Cleaning Step 2">
+                <img src="../assets/images/format-data.png" alt="Data Cleaning Step 3">
             </div>
         </div>
     </main>
