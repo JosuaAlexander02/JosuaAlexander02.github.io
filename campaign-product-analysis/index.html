@@ -195,7 +195,7 @@
             background: rgba(56, 189, 248, 0.25);
         }
 
-        /* ---------- GALERI GAMBAR ---------- */
+        /* ---------- GALERI GAMBAR (border pas dengan gambar, tanpa celah) ---------- */
         .image-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -204,15 +204,14 @@
         }
 
         .image-gallery img {
-            width: 300px;
+            max-width: 300px;           /* batas lebar, tidak memaksa */
+            width: auto;                /* lebar mengikuti gambar asli */
             height: auto;
             border-radius: 12px;
             border: 2px solid rgba(56, 189, 248, 0.3);
             box-shadow: 0 6px 18px rgba(56, 189, 248, 0.25), 0 2px 6px rgba(0,0,0,0.4);
-            object-fit: contain;
-            object-position: top left;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
-            cursor: default;
+            display: block;
         }
 
         .image-gallery img:hover {
@@ -238,8 +237,7 @@
                 padding: 20px;
             }
             .image-gallery img {
-                width: 100%;
-                max-width: 400px;
+                max-width: 100%;
             }
         }
     </style>
@@ -340,17 +338,10 @@
         <!-- RESULT -->
         <div class="section">
             <h2>Result</h2>
-            <h3>Data Cleaning Process</h3>
-            <p>Prior to the data cleaning process, I applied filters across all columns to assess the presence of duplicates, missing values, and formatting errors. I then performed the following steps:</p>
-            <ul>
-                <li><strong>Removed Duplicates:</strong> Eliminated duplicate rows utilizing the spreadsheet's built-in remove duplicates feature.</li>
-                <li><strong>Handled Missing Values:</strong> Dropped irrelevant columns with over 50% missing data, following data cleaning best practices. For the remaining missing data, I imputed the values based on variable relationships defined in the data dictionary.</li>
-                <li><strong>Standardized Formatting:</strong> Corrected formatting errors across several columns to align with the data dictionary guidelines.</li>
-            </ul>
+            <h3>Descriptive Statistics Analysis</h3>
+            <p>Descriptive statistics analysis results will be displayed here.</p>
             <div class="image-gallery">
-                <img src="../assets/images/quantity.png" alt="Remove Duplicates">
-                <img src="../assets/images/discount.png" alt="Handle Missing Values">
-                <img src="../assets/images/revenue.png" alt="Standardized Formatting">
+                <!-- Gambar-gambar statistik deskriptif akan ditambahkan kemudian -->
             </div>
         </div>
     </main>
