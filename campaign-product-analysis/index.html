@@ -20,7 +20,6 @@
             align-items: flex-start;
         }
 
-        /* ---------- SIDEBAR CONTAINER ---------- */
         .sidebar-container {
             position: sticky;
             top: 0;
@@ -78,7 +77,6 @@
             transform: translateY(-2px);
         }
 
-        /* ---------- TOMBOL TOGGLE ---------- */
         .toggle-btn {
             position: fixed;
             top: 50%;
@@ -112,12 +110,10 @@
         .toggle-btn i {
             transition: transform 0.3s;
         }
-
         body.sidebar-closed .toggle-btn i {
             transform: rotate(180deg);
         }
 
-        /* ---------- AREA UTAMA ---------- */
         .main-area {
             flex: 1;
             padding: 40px 50px;
@@ -195,7 +191,6 @@
             background: rgba(56, 189, 248, 0.25);
         }
 
-        /* ---------- GALERI GAMBAR ---------- */
         .image-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -245,7 +240,6 @@
 </head>
 <body>
 
-    <!-- SIDEBAR CONTAINER -->
     <div class="sidebar-container" id="sidebarContainer">
         <aside class="sidebar">
             <h2>Tokobli<br>E-Commerce</h2>
@@ -255,16 +249,13 @@
         </aside>
     </div>
 
-    <!-- TOMBOL TOGGLE -->
     <button class="toggle-btn" id="toggleSidebar">
         <i class="fas fa-chevron-left"></i>
     </button>
 
-    <!-- AREA UTAMA -->
     <main class="main-area">
         <h1>Tokobli E-Commerce</h1>
 
-        <!-- PROJECT SUMMARY -->
         <div class="section">
             <h2>Project Summary</h2>
             <ol>
@@ -276,7 +267,6 @@
             </ol>
         </div>
 
-        <!-- INSIGHTS -->
         <div class="section">
             <h2>Insights</h2>
             <h3>Campaign Performance</h3>
@@ -302,7 +292,6 @@
             </ul>
         </div>
 
-        <!-- ADDITIONAL RESOURCES -->
         <div class="section">
             <h2>Additional Resources</h2>
             <p>For a more comprehensive analysis and visualization, please open the project files.</p>
@@ -316,7 +305,6 @@
             </div>
         </div>
 
-        <!-- PROJECT BACKGROUND, OBJECTIVE, AND METHODOLOGY -->
         <div class="section">
             <h2>Project Background, Objective, and Methodology</h2>
             <h3>Project Background</h3>
@@ -357,58 +345,71 @@
             </ul>
 
             <h3>2. Campaign Performance Analysis</h3>
-                <p><strong>Total Transaction by Campaign</strong></p>
+            <p><strong>Total Transaction by Campaign</strong></p>
             <div class="image-gallery">
                 <img src="../assets/images/total-transaction.png" alt="Total Transaction">
             </div>
-                <p>Throughout the period, customers transacted most frequently during the 12/12 campaign.
-                    The pie chart highlights this peak, showing that the 12/12 event led the period with a total of 3,410 transactions.</p>
-        
-                <p><strong>Total Customer by Campaign</strong></p>
+            <p>Throughout the period, customers transacted most frequently during the 12/12 campaign. The pie chart highlights this peak, showing that the 12/12 event led the period with a total of 3,410 transactions.</p>
+
+            <p><strong>Total Customer by Campaign</strong></p>
             <div class="image-gallery">
                 <img src="../assets/images/total-customer.png" alt="Total Customer">
             </div>
-                <p>The 11/11 campaign attracted the highest number of customers among all campaigns, totaling 1,567.
-                    In contrast, the 12/12 campaign recorded the lowest customer count with 1,447.</p>
-        
-                <p><strong>Total Product Sold by Campaign</strong></p>
+            <p>The 11/11 campaign attracted the highest number of customers among all campaigns, totaling 1,567. In contrast, the 12/12 campaign recorded the lowest customer count with 1,447.</p>
+
+            <p><strong>Total Product Sold by Campaign</strong></p>
             <div class="image-gallery">
                 <img src="../assets/images/total-product-sold.png" alt="Total Product Sold">
             </div>
-                <p>The product sold the most units during the 12/12 campaign, with 4,486 units sold.
-                The least units sold occurred during the 11/11 campaign, with 4,115 units sold.</p>
+            <p>The product sold the most units during the 12/12 campaign, with 4,486 units sold. The least units sold occurred during the 11/11 campaign, with 4,115 units sold.</p>
 
-                <p><strong>Total Revenue by Campaign</strong></p>
+            <p><strong>Total Revenue by Campaign</strong></p>
             <div class="image-gallery">
                 <img src="../assets/images/total-revenue.png" alt="Total Revenue">
             </div>
-                <p>The highest revenue occurred during the 11/11 campaign, amounting to Rp 16,622,135,800.
-                The lowest revenue occurred during the 12/12 campaign, amounting to Rp 14,807,815,100.</p>
+            <p>The highest revenue occurred during the 11/11 campaign, amounting to Rp 16,622,135,800. The lowest revenue occurred during the 12/12 campaign, amounting to Rp 14,807,815,100.</p>
 
-                 <p><strong>Total Discount by Campaign</strong></p>
+            <p><strong>Total Discount by Campaign</strong></p>
             <div class="image-gallery">
                 <img src="../assets/images/total-discount.png" alt="Total Discount">
             </div>
-                <p>The largest cumulative discount occurred during the 11/11 campaign period, amounting to Rp 302,636,200.
-                The smallest cumulative discount occurred during the 12/12 campaign period, amounting to Rp 252,834,900.</p>
+            <p>The largest cumulative discount occurred during the 11/11 campaign period, amounting to Rp 302,636,200. The smallest cumulative discount occurred during the 12/12 campaign period, amounting to Rp 252,834,900.</p>
 
-                <p><strong>Discount Efficiency Ratio by Campaign</strong></p>
+            <p><strong>Discount Efficiency Ratio by Campaign</strong></p>
             <div class="image-gallery">
                 <img src="../assets/images/revenue-per-discount.png" alt="Revenue per Discount">
-                <img src="../assets/images/discount-efficiency.png" alt="Discount Efficeincy">
+                <img src="../assets/images/discount-efficiency.png" alt="Discount Efficiency">
             </div>
-                <li>Campaign 11/11 (The Revenue Champion): This campaign generated the highest Total Revenue (Rp16.6 Billion) and attracted the largest customer base. 
-                However, its discount efficiency ranked second with a ratio of 55.</li>
-                <li>Campaign 12/12 (The Efficiency & Volume Champion): Although its total revenue did not surpass the 11/11 campaign, it was the most 
-                budget-efficient (ratio of 59) and successfully recorded the highest number of transactions and items sold.</li>
+            <ul>
+                <li>Campaign 11/11 (The Revenue Champion): This campaign generated the highest Total Revenue (Rp16.6 Billion) and attracted the largest customer base. However, its discount efficiency ranked second with a ratio of 55.</li>
+                <li>Campaign 12/12 (The Efficiency & Volume Champion): Although its total revenue did not surpass the 11/11 campaign, it was the most budget-efficient (ratio of 59) and successfully recorded the highest number of transactions and items sold.</li>
+            </ul>
 
             <h3>3. Product Category Performance Analysis</h3>
-                <p><strong>Product Category Perfomance in the 10/10 Campaign</strong></p>
+            <p><strong>Product Category Performance in the 10/10 Campaign</strong></p>
             <div class="image-gallery">
                 <img src="../assets/images/table-revenue-campaign-10.png" alt="Table Revenue">
                 <img src="../assets/images/bar-chart-revenue-campaign-10.png" alt="Bar Revenue">
-            
-    
+            </div>
+
+            <!-- Kalimat baru ditambahkan di sini -->
+            <p><strong>Top-Performing Categories</strong></p>
+            <ul>
+                <li><strong>Men's Fashion:</strong> This category served as the backbone of the campaign, generating the highest revenue of Rp3,381,140,000. It demonstrated highly optimal efficiency, with a discount expense ratio of only 1.00%.</li>
+                <li><strong>Beauty & Grooming:</strong> Secured the second position with a revenue of Rp2,942,085,500 and successfully recorded the highest product sales volume at 823 units.</li>
+            </ul>
+
+            <p><strong>Underperforming Categories (Areas of Budget Leakage)</strong></p>
+            <ul>
+                <li><strong>Superstore:</strong> This category was the primary source of inefficiency, holding the highest discount expense ratio at 3.85%. The chart reveals a sharp spike in its percentage line, which contrasts sharply with its mid-tier revenue contribution (Rp1,126,062,000).</li>
+                <li><strong>Appliances:</strong> Displayed a similarly wasteful trend with a discount expense ratio of 3.12%. This high proportion of discount expenditure is particularly burdensome as the resulting revenue was notably low (Rp556,784,000).</li>
+            </ul>
+
+            <p><strong>Conclusion on Efficiency Decline</strong></p>
+            <p>The excessive discount expenditures in the Superstore and Appliances categories failed to convert into proportional revenue. The budget leakage from these two problematic categories created a heavy financial burden, which even the outstanding performance of Men's Fashion could not fully offset. This dynamic ultimately dragged down the overall average performance, resulting in the 10/10 Campaign having the lowest discount efficiency rate.</p>
+        </div>
+    </main>
+
     <script>
         const toggleBtn = document.getElementById('toggleSidebar');
         const body = document.body;
