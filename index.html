@@ -1,50 +1,84 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- PERBAIKAN: SEO & Meta Data -->
+    <title>Josua Naibaho | Data Analyst Portfolio</title>
+    <meta name="description" content="Portfolio profesional Josua Alexander Naibaho - Data Analyst, Business Intelligence, dan Visualisasi Data." />
+    <meta property="og:title" content="Josua Naibaho | Data Analyst Portfolio" />
+    <meta property="og:type" content="website" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
     <style>
         * {
             box-sizing: border-box;
         }
 
+        /* PERBAIKAN: Latar gelap dipindah ke BODY, agar konsisten dan tidak terbuang */
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle, #E0FFFF, #B0C4DE);
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            color: #cbd5e1;
         }
 
-        /* ---------- HEADER ---------- */
+        /* ---------- HEADER (PERBAIKAN: GRID UNTUK RAPI) ---------- */
         .header {
             background: rgba(44, 62, 80, 0.9);
-            padding: 15px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(10px);
+
+            /* PERBAIKAN: Pakai Grid, bukan absolute + padding hack */
+            display: grid;
+            grid-template-columns: 50px 1fr 50px;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-btn {
+            /* PERBAIKAN: Hapus position:absolute, transform, top, left */
+            justify-self: start;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            transition: background 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-left: 60px;
-            padding-right: 20px;
+            color: #2c3e50;
+            z-index: 110;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(255, 255, 255, 1);
         }
 
         .textbox-marquee {
-            max-width: 650px;
+            grid-column: 2; /* PERBAIKAN: Posisi tengah otomatis */
             width: 100%;
             background: #ffffffcc;
             border-radius: 30px;
             padding: 12px 20px;
             overflow: hidden;
             white-space: nowrap;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5px);
-            flex-shrink: 0;
         }
 
         .textbox-marquee p {
@@ -62,60 +96,41 @@
         }
 
         @keyframes marquee {
-            0%   { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-100%, 0);
+            }
         }
 
-        .toggle-btn {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.8);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.4rem;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            backdrop-filter: blur(5px);
-            transition: background 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #2c3e50;
-            z-index: 110;
-        }
-
-        .toggle-btn:hover {
-            background: rgba(255,255,255,1);
-        }
-
-        /* ---------- PANEL KIRI (SESUAIKAN DENGAN TEMA GELAP) ---------- */
+        /* ---------- PANEL KIRI (PERBAIKAN: TRANSFORM UNTUK HALUS) ---------- */
         .info-panel-left {
             position: fixed;
             top: 80px;
             left: 0;
             bottom: 0;
             width: 260px;
-            background: rgba(15, 23, 42, 0.8);   /* navy gelap transparan */
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(12px);
-            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
             padding: 20px;
             overflow-y: auto;
             z-index: 90;
-            transition: width 0.3s ease, padding 0.3s, opacity 0.3s;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            color: #cbd5e1;   /* teks terang */
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+
+            /* PERBAIKAN: Transisi hanya pada transform & opacity (paling halus) */
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+            transform: translateX(0);
+            opacity: 1;
         }
 
+        /* PERBAIKAN: Sembunyikan dengan geser ke kiri, bukan width:0 */
         body.sidebar-hidden .info-panel-left {
-            width: 0;
-            padding: 0;
-            overflow: hidden;
+            transform: translateX(-100%);
             opacity: 0;
-            border-right: none;
+            pointer-events: none; /* Agar tidak bisa diklik saat tersembunyi */
         }
 
         .info-card {
@@ -128,8 +143,8 @@
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid rgba(255,255,255,0.3);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
             margin-bottom: 10px;
         }
 
@@ -145,21 +160,19 @@
             color: #94a3b8;
         }
 
-        /* ---------- KONTEN UTAMA (LATAR GELAP PENUH) ---------- */
+        /* ---------- KONTEN UTAMA ---------- */
         .konten {
-            margin-left: 260px;            /* mengikuti lebar sidebar */
+            margin-left: 260px;
             padding: 40px 40px 20px;
             text-align: center;
-            color: #cbd5e1;
-            transition: margin-left 0.3s ease;
+            transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             flex: 1;
-            /* Latar belakang gelap penuh */
-            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
-            /* Tidak ada max-width, agar melebar penuh */
+            /* PERBAIKAN: Hapus background di sini, biar tembus ke body */
+            background: transparent;
         }
 
         body.sidebar-hidden .konten {
-            margin-left: 0;                /* jika sidebar hilang, konten memenuhi layar */
+            margin-left: 0;
         }
 
         .konten h1 {
@@ -168,7 +181,7 @@
             color: #f8fafc;
         }
 
-        .konten > p {
+        .konten>p {
             font-size: 1.2rem;
             margin-bottom: 30px;
         }
@@ -177,14 +190,14 @@
         .about-section {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 30px 35px;
             margin: 0 auto 40px;
             max-width: 900px;
             text-align: left;
             line-height: 1.7;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .about-section h2 {
@@ -202,7 +215,7 @@
 
         .tools-column {
             flex: 1 1 220px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             padding: 12px 18px;
             border-left: 4px solid #38bdf8;
@@ -240,9 +253,9 @@
             margin: 0 auto 40px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
 
@@ -253,7 +266,7 @@
             font-size: 1.3rem;
             font-weight: bold;
             color: #f1f5f9;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -265,7 +278,7 @@
         }
 
         .dropdown-container summary:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .dropdown-container summary::after {
@@ -292,9 +305,9 @@
         .project-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             width: 320px;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -305,14 +318,16 @@
 
         .project-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 14px 28px rgba(0,0,0,0.4);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.4);
         }
 
         .project-card img {
             width: 100%;
             height: 200px;
             object-fit: cover;
-            border-bottom: 2px solid rgba(255,255,255,0.1);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            /* PERBAIKAN: Fallback warna jika gambar gagal load */
+            background-color: #1e293b;
         }
 
         .project-info {
@@ -344,7 +359,7 @@
         }
 
         .project-tags span {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: #cbd5e1;
             font-size: 0.75rem;
             padding: 4px 10px;
@@ -353,7 +368,7 @@
         }
 
         .project-tools {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             padding: 10px 12px;
             margin-bottom: 12px;
@@ -417,7 +432,7 @@
             border-radius: 12px;
             padding: 15px 20px;
             width: 280px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -427,7 +442,7 @@
 
         .certificate-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
 
         .certificate-card i {
@@ -464,7 +479,7 @@
             padding: 20px 40px;
             text-align: center;
             backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255,255,255,0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             z-index: 5;
         }
 
@@ -496,27 +511,15 @@
             color: #FFD700;
         }
 
-        .footer-item.email-link {
-            gap: 0;
-        }
-
-        /* ---------- RESPONSIVE ---------- */
+        /* ---------- RESPONSIVE (PERBAIKAN: SIDEBAR TETAP FIXED & HALUS) ---------- */
         @media (max-width: 768px) {
             .info-panel-left {
-                position: relative;
-                top: 0;
-                bottom: auto;
-                width: 100%;
-                max-height: 40vh;
-                overflow-y: auto;
+                top: 80px;
+                width: 280px; /* Lebar tetap, digeser dengan transform */
                 border-right: none;
-                border-bottom: 1px solid rgba(255,255,255,0.2);
-            }
-
-            body.sidebar-hidden .info-panel-left {
-                width: 100%;
-                max-height: 0;
-                padding: 0;
+                border-bottom: none;
+                /* PERBAIKAN: Di mobile, posisi tetap fixed dan digeser, 
+                   tidak pakai relative/max-height sama sekali */
             }
 
             .konten {
@@ -535,32 +538,49 @@
                 width: 60px;
                 height: 60px;
             }
+
+            /* PERBAIKAN: Header grid tetap rapi di mobile */
+            .header {
+                grid-template-columns: 40px 1fr 40px;
+                padding: 10px 15px;
+            }
+            .toggle-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
+            }
+            .textbox-marquee p {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- HEADER -->
     <header class="header">
-        <button class="toggle-btn" id="togglePanels" title="Tampilkan Info">
+        <button class="toggle-btn" id="togglePanels" title="Tampilkan Info" aria-controls="infoPanel" aria-expanded="true">
             <i class="fas fa-user"></i>
         </button>
         <div class="textbox-marquee">
             <p>✨ Selamat datang di portofolio saya! | Lihat proyek terbaru di bawah | Hubungi saya untuk kolaborasi ✨</p>
         </div>
+        <!-- PERBAIKAN: Kolom kanan kosong (grid ke-3) agar marquee tetap sentris -->
+        <div></div>
     </header>
 
-    <!-- PANEL KIRI (SESUAI GELAP) -->
+    <!-- PANEL KIRI -->
     <div class="info-panel-left" id="infoPanel">
         <div class="info-card">
-            <img src="https://via.placeholder.com/150/2c3e50/ffffff?text=Foto" alt="Foto Profil">
+            <img src="https://placehold.co/150/2c3e50/ffffff?text=Foto" alt="Foto Profil Josua">
             <h3>Josua Alexander Naibaho</h3>
             <p>💼 Data Enthusiast | Data Analyst | Business Intelligence | Visualization</p>
             <p>📍 Jakarta Timur, Indonesia</p>
         </div>
     </div>
 
-    <!-- KONTEN UTAMA (LATAR GELAP PENUH) -->
+    <!-- KONTEN UTAMA -->
     <main class="konten">
         <h1>Hello, Welcome to My Portfolio!</h1>
         <p>Ini adalah kumpulan projek yang sudah pernah saya kerjakan.</p>
@@ -570,7 +590,7 @@
             <h2>About Me</h2>
             <p>Halo, nama saya <strong>Josua Alexander Naibaho</strong>. Saya adalah seorang Data Analyst yang berkembang dari perjalanan menyeimbangkan tanggung jawab pekerjaan operasional dan pendidikan akademis di jurusan Ekonomi. Pengalaman ini telah membentuk saya menjadi individu yang disiplin, tangguh, dan sangat berorientasi pada detail.</p>
             <p>Saat ini, saya menyalurkan dedikasi dan etos kerja tersebut ke dalam dunia data analytics untuk membantu bisnis mengubah data mentah menjadi keputusan yang strategis.</p>
-            
+
             <div class="tools-grid">
                 <div class="tools-column">
                     <h4>🛠️ Tools Used</h4>
@@ -598,13 +618,12 @@
         <details class="dropdown-container" open>
             <summary>📁 Recent Work</summary>
             <div class="projects-grid">
-                <!-- Proyek 1 -->
+                <!-- Proyek 1 (PERBAIKAN: Pakai placeholder online + fallback) -->
                 <div class="project-card">
-                    <img src="assets/images/cover-project-1.png" alt="Cover Campaign Product Analysis">
+                    <img src="https://placehold.co/320x200/1e293b/38bdf8?text=Campaign+Analysis" alt="Cover Campaign Product Analysis">
                     <div class="project-info">
                         <h3>Tokobli E-Commerce</h3>
-                        <p>The goal of this project was to find out which campaign was the most profitable among other twin date campaigns, 
-                        as well as to analyze whether the new layout and the addition of the “Buy Now” button affected customer spending.</p>
+                        <p>The goal of this project was to find out which campaign was the most profitable among other twin date campaigns, as well as to analyze whether the new layout and the addition of the “Buy Now” button affected customer spending.</p>
                         <div class="project-tags">
                             <span>Data Cleaning</span>
                             <span>Data Manipulation</span>
@@ -620,13 +639,14 @@
                                 <li><i class="fas fa-chart-pie"></i> Tableau</li>
                             </ul>
                         </div>
-                        <a href="https://josuaalexander02.github.io/campaign-product-analysis/" class="project-link">Lihat Detail</a>
+                        <!-- PERBAIKAN: tambah rel="noopener" -->
+                        <a href="https://josuaalexander02.github.io/campaign-product-analysis/" class="project-link" target="_blank" rel="noopener noreferrer">Lihat Detail</a>
                     </div>
                 </div>
 
                 <!-- Proyek 2 -->
                 <div class="project-card">
-                    <img src="https://via.placeholder.com/320x200/2c3e50/ffffff?text=Proyek+2" alt="Proyek 2">
+                    <img src="https://placehold.co/320x200/1e293b/38bdf8?text=Aplikasi+Cuaca" alt="Proyek Cuaca">
                     <div class="project-info">
                         <h3>Aplikasi Cuaca</h3>
                         <p>Menampilkan prakiraan cuaca real-time menggunakan API.</p>
@@ -642,13 +662,13 @@
                                 <li><i class="fas fa-code"></i> VS Code</li>
                             </ul>
                         </div>
-                        <a href="#" class="project-link">Lihat Detail</a>
+                        <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Lihat Detail</a>
                     </div>
                 </div>
 
                 <!-- Proyek 3 -->
                 <div class="project-card">
-                    <img src="https://via.placeholder.com/320x200/2c3e50/ffffff?text=Proyek+3" alt="Proyek 3">
+                    <img src="https://placehold.co/320x200/1e293b/38bdf8?text=UI%2FUX+Mobile" alt="Proyek UI/UX">
                     <div class="project-info">
                         <h3>Desain UI/UX Mobile</h3>
                         <p>Prototipe aplikasi mobile untuk pemesanan makanan.</p>
@@ -663,7 +683,7 @@
                                 <li><i class="fab fa-figma"></i> Figma</li>
                             </ul>
                         </div>
-                        <a href="#" class="project-link">Lihat Detail</a>
+                        <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Lihat Detail</a>
                     </div>
                 </div>
             </div>
@@ -676,17 +696,17 @@
                 <div class="certificate-card">
                     <i class="fas fa-certificate"></i>
                     <h4>Data Science Professional</h4>
-                    <a href="#" target="_blank">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
                 </div>
                 <div class="certificate-card">
                     <i class="fas fa-certificate"></i>
                     <h4>Google Data Analytics</h4>
-                    <a href="#" target="_blank">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
                 </div>
                 <div class="certificate-card">
                     <i class="fas fa-certificate"></i>
                     <h4>Tableau Desktop Specialist</h4>
-                    <a href="#" target="_blank">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
                 </div>
             </div>
         </details>
@@ -698,26 +718,30 @@
             <a href="mailto:Josuaalexandernaibaho@gmail.com" class="footer-item email-link">
                 Josuaalexandernaibaho@gmail.com
             </a>
-            <a href="#" class="footer-item">
+            <a href="#" class="footer-item" target="_blank" rel="noopener noreferrer">
                 <i class="fas fa-globe"></i> Website
             </a>
-            <a href="https://www.instagram.com/josua_naibaho01/" target="_blank" class="footer-item">
+            <a href="https://www.instagram.com/josua_naibaho01/" target="_blank" rel="noopener noreferrer" class="footer-item">
                 <i class="fab fa-instagram"></i> Instagram
             </a>
-            <a href="https://www.linkedin.com/in/josua-alexander/" target="_blank" class="footer-item">
+            <a href="https://www.linkedin.com/in/josua-alexander/" target="_blank" rel="noopener noreferrer" class="footer-item">
                 <i class="fab fa-linkedin"></i> LinkedIn
             </a>
         </div>
-        <p style="margin-top:15px; font-size:0.85rem; opacity:0.8;">© 2026 Josua Alexander Naibaho. All rights reserved.</p>
+        <p style="margin-top:15px; font-size:0.85rem; opacity:0.8;">&copy; 2026 Josua Alexander Naibaho. All rights reserved.</p>
     </footer>
 
     <script>
         const toggleBtn = document.getElementById('togglePanels');
         const body = document.body;
+        const infoPanel = document.getElementById('infoPanel');
 
         toggleBtn.addEventListener('click', () => {
-            body.classList.toggle('sidebar-hidden');
-            toggleBtn.title = body.classList.contains('sidebar-hidden') ? 'Tampilkan Info' : 'Sembunyikan Info';
+            const isHidden = body.classList.toggle('sidebar-hidden');
+
+            // PERBAIKAN: Update title dan aksesibilitas (aria-expanded)
+            toggleBtn.title = isHidden ? 'Tampilkan Info' : 'Sembunyikan Info';
+            toggleBtn.setAttribute('aria-expanded', !isHidden);
         });
     </script>
 
