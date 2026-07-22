@@ -1,263 +1,312 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tokobli E-Commerce - Josua Alexander Naibaho</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Tokobli E-Commerce Campaign Analysis | Josua Alexander Naibaho</title>
+    <meta name="description" content="Case study: campaign performance analysis, EDA, and A/B testing for Tokobli e-commerce twin-date campaigns.">
+
+    <meta property="og:title" content="Tokobli E-Commerce Campaign Analysis | Josua Naibaho">
+    <meta property="og:description" content="Campaign performance analysis, discount efficiency, and A/B testing for a Twin Date e-commerce promotion.">
+    <meta property="og:type" content="article">
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            box-sizing: border-box;
+        /* ===== Token warna sama dengan homepage, untuk konsistensi identitas ===== */
+        :root {
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --highlight: #f59e0b;
+            --success: #22c55e;
+            --danger: #f87171;
+
+            --bg-body: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-card-solid: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.14);
+
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-pill: 999px;
+            --sidebar-w: 280px;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-body);
             display: flex;
             min-height: 100vh;
-            color: #cbd5e1;
+            color: var(--text-secondary);
             align-items: flex-start;
         }
 
+        h1, h2, h3 { font-family: 'Sora', 'Segoe UI', sans-serif; }
+
+        a { color: inherit; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+        .skip-link {
+            position: absolute; left: -999px; top: 0;
+            background: var(--accent); color: #0f172a;
+            padding: 10px 18px; border-radius: 0 0 var(--radius-sm) 0;
+            font-weight: 600; z-index: 300;
+        }
+        .skip-link:focus { left: 0; }
+
+        /* ===== SIDEBAR ===== */
         .sidebar-container {
             position: sticky;
             top: 0;
             height: 100vh;
-            width: 260px;
+            width: var(--sidebar-w);
             flex-shrink: 0;
             transition: width 0.3s ease;
             overflow: hidden;
             z-index: 10;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(12px);
             box-shadow: 2px 0 10px rgba(0,0,0,0.4);
-            display: flex;
-            flex-direction: column;
         }
-
-        body.sidebar-closed .sidebar-container {
-            width: 0;
-            box-shadow: none;
-        }
+        body.sidebar-closed .sidebar-container { width: 0; box-shadow: none; }
 
         .sidebar {
-            padding: 30px 20px;
+            padding: 28px 22px;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 22px;
             height: 100%;
+            overflow-y: auto;
+            width: var(--sidebar-w);
         }
 
-        .sidebar h2 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: #f8fafc;
-            line-height: 1.3;
-        }
+        .sidebar h2 { margin: 0; font-size: 1.35rem; color: var(--text-primary); line-height: 1.3; }
 
         .home-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            background: #38bdf8;
-            color: #0f172a;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.95rem;
+            display: inline-flex; align-items: center; gap: 8px;
+            text-decoration: none; background: var(--accent); color: #0f172a;
+            padding: 9px 18px; border-radius: var(--radius-pill);
+            font-weight: 600; font-size: 0.9rem;
             transition: background 0.2s, transform 0.2s;
             align-self: flex-start;
         }
+        .home-link:hover { background: var(--accent-hover); color: white; transform: translateY(-2px); }
 
-        .home-link:hover {
-            background: #0284c7;
-            color: white;
-            transform: translateY(-2px);
+        /* Meta proyek di sidebar (baru) — sebelumnya kosong, hanya judul + tombol home */
+        .project-meta {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            font-size: 0.82rem;
         }
+        .project-meta dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 10px; }
+        .project-meta dt { color: var(--text-muted); }
+        .project-meta dd { margin: 0; color: var(--text-primary); font-weight: 500; text-align: right; }
+
+        /* TOC in-page navigation (baru — memperbaiki halaman panjang tanpa navigasi) */
+        .toc { display: flex; flex-direction: column; gap: 2px; }
+        .toc-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 6px; }
+        .toc a {
+            text-decoration: none; color: var(--text-secondary); font-size: 0.85rem;
+            padding: 7px 10px; border-radius: 8px; transition: background 0.2s, color 0.2s;
+        }
+        .toc a:hover, .toc a.active { background: rgba(56, 189, 248, 0.14); color: var(--accent); }
 
         .toggle-btn {
-            position: fixed;
-            top: 50%;
-            left: 260px;
+            position: fixed; top: 50%; left: var(--sidebar-w);
             transform: translate(-50%, -50%);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: none;
-            background: #38bdf8;
-            color: #0f172a;
-            font-size: 1.2rem;
-            cursor: pointer;
-            z-index: 20;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            width: 34px; height: 34px; border-radius: 50%; border: none;
+            background: var(--accent); color: #0f172a; font-size: 1.1rem;
+            cursor: pointer; z-index: 20; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             transition: left 0.3s ease, background 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
         }
+        body.sidebar-closed .toggle-btn { left: 20px; }
+        .toggle-btn:hover { background: var(--accent-hover); color: white; }
+        .toggle-btn i { transition: transform 0.3s; }
+        body.sidebar-closed .toggle-btn i { transform: rotate(180deg); }
 
-        body.sidebar-closed .toggle-btn {
-            left: 20px;
-        }
-
-        .toggle-btn:hover {
-            background: #0284c7;
-            color: white;
-        }
-
-        .toggle-btn i {
-            transition: transform 0.3s;
-        }
-        body.sidebar-closed .toggle-btn i {
-            transform: rotate(180deg);
-        }
-
-        .main-area {
-            flex: 1;
-            padding: 40px 50px;
-            overflow-y: auto;
-        }
-
-        .main-area h1 {
-            font-size: 2.2rem;
-            color: #f8fafc;
-            margin: 0 0 30px;
-        }
+        /* ===== MAIN AREA ===== */
+        .main-area { flex: 1; padding: 44px 50px 60px; max-width: 900px; }
+        .main-area h1 { font-size: 2.1rem; color: var(--text-primary); margin: 0 0 8px; }
+        .subtitle { color: var(--text-muted); font-size: 1.05rem; margin: 0 0 28px; }
 
         .main-area h2 {
-            font-size: 1.8rem;
-            color: #f1f5f9;
-            margin: 0 0 10px;
-            border-bottom: 2px solid rgba(56, 189, 248, 0.4);
-            padding-bottom: 5px;
+            font-size: 1.5rem; color: var(--text-primary); margin: 0 0 14px;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.35); padding-bottom: 8px;
+            scroll-margin-top: 20px;
         }
+        .main-area h3 { font-size: 1.2rem; color: var(--text-primary); margin: 24px 0 10px; }
+        .main-area p, .main-area li { line-height: 1.7; margin-bottom: 8px; font-size: 0.98rem; }
+        .main-area ul { padding-left: 22px; }
+        .main-area ol { padding-left: 22px; margin: 10px 0; }
+        .main-area ol li { margin-bottom: 12px; padding-left: 5px; }
 
-        .main-area h3 {
-            font-size: 1.4rem;
-            color: #f1f5f9;
-            margin: 25px 0 10px;
-        }
+        .section { margin-bottom: 44px; }
 
-        .main-area p,
-        .main-area li {
-            line-height: 1.7;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .main-area ul {
-            list-style-type: disc;
-            padding-left: 25px;
-        }
-
-        .main-area ol {
-            padding-left: 25px;
-            margin: 10px 0;
-        }
-
-        .main-area ol li {
-            margin-bottom: 12px;
-            padding-left: 5px;
-        }
-
-        .section {
+        /* ===== KPI STRIP (baru — dashboard aesthetic, ringkas angka penting di awal) ===== */
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
             margin-bottom: 40px;
         }
-
-        .file-links {
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
         }
+        .kpi-card p.label { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-muted); margin: 0 0 6px; }
+        .kpi-card p.value { font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin: 0 0 4px; }
+        .kpi-card p.sub { font-size: 0.78rem; color: var(--text-muted); margin: 0; }
+        .kpi-card.win p.value { color: var(--success); }
 
+        .file-links { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 15px; }
         .file-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(56, 189, 248, 0.15);
-            color: #38bdf8;
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(56, 189, 248, 0.15); color: var(--accent);
             border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.2s;
+            padding: 8px 16px; border-radius: var(--radius-sm);
+            text-decoration: none; font-weight: 500; transition: background 0.2s;
+        }
+        .file-link:hover { background: rgba(56, 189, 248, 0.25); }
+        /* File belum tersedia: status jujur, bukan link mati (memperbaiki href="#") */
+        .file-link.disabled {
+            background: var(--bg-card); color: var(--text-muted);
+            border-color: var(--border-color); pointer-events: none;
         }
 
-        .file-link:hover {
-            background: rgba(56, 189, 248, 0.25);
-        }
-
-        .image-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            margin-top: 15px;
-            margin-bottom: 25px;
-        }
-
+        .image-gallery { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 15px; margin-bottom: 10px; }
+        .image-gallery figure { margin: 0; max-width: 300px; }
         .image-gallery img {
-            max-width: 300px;
-            width: auto;
-            height: auto;
-            border-radius: 12px;
-            border: 2px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 6px 18px rgba(56, 189, 248, 0.25), 0 2px 6px rgba(0,0,0,0.4);
+            max-width: 300px; width: auto; height: auto; display: block;
+            border-radius: var(--radius-sm); border: 2px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 6px 18px rgba(56, 189, 248, 0.2), 0 2px 6px rgba(0,0,0,0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
-            display: block;
         }
+        .image-gallery img:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(56, 189, 248, 0.35), 0 4px 12px rgba(0,0,0,0.5); border-color: rgba(56, 189, 248, 0.6); }
+        /* Caption gambar (baru — sebelumnya gambar tanpa keterangan) */
+        .image-gallery figcaption { font-size: 0.78rem; color: var(--text-muted); margin-top: 6px; text-align: center; }
 
-        .image-gallery img:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(56, 189, 248, 0.4), 0 4px 12px rgba(0,0,0,0.5);
-            border-color: rgba(56, 189, 248, 0.6);
+        /* ===== VERDICT CARDS untuk Key Summary (baru — sebelumnya bullet list biasa) ===== */
+        .verdict-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 12px; }
+        .verdict-card {
+            border-radius: var(--radius-md);
+            padding: 20px 22px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card-solid);
         }
+        .verdict-card .tag {
+            display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.4px; padding: 4px 10px; border-radius: var(--radius-pill); margin-bottom: 10px;
+        }
+        .verdict-card.top { border-top: 3px solid var(--success); }
+        .verdict-card.top .tag { background: rgba(34,197,94,0.16); color: var(--success); }
+        .verdict-card.worst { border-top: 3px solid var(--danger); }
+        .verdict-card.worst .tag { background: rgba(248,113,113,0.16); color: var(--danger); }
+        .verdict-card.anomaly { border-top: 3px solid var(--highlight); }
+        .verdict-card.anomaly .tag { background: rgba(245,158,11,0.16); color: var(--highlight); }
+        .verdict-card h3 { margin: 0 0 10px; font-size: 1.05rem; }
+        .verdict-card ul { padding-left: 18px; margin: 0; }
+        .verdict-card li { font-size: 0.9rem; margin-bottom: 8px; }
+
+        #backToTop {
+            position: fixed; bottom: 26px; right: 26px; width: 46px; height: 46px;
+            background: var(--accent); color: #0f172a; border: none; border-radius: 50%;
+            font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 15px rgba(56,189,248,0.4);
+            transition: all 0.3s ease; opacity: 0; visibility: hidden; transform: translateY(20px); z-index: 999;
+        }
+        #backToTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        #backToTop:hover { background: var(--accent-hover); color: white; }
 
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            .sidebar-container {
-                position: relative;
-                height: auto;
-                width: 100%;
-                order: -1;
-            }
-            .toggle-btn {
-                display: none;
-            }
-            .main-area {
-                padding: 20px;
-            }
-            .image-gallery img {
-                max-width: 100%;
-            }
+            body { flex-direction: column; }
+            .sidebar-container { position: relative; height: auto; width: 100%; order: -1; }
+            .sidebar { width: 100%; }
+            .toggle-btn { display: none; }
+            .main-area { padding: 24px 18px; }
+            .image-gallery img, .image-gallery figure { max-width: 100%; }
         }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <div class="sidebar-container" id="sidebarContainer">
         <aside class="sidebar">
             <h2>Tokobli<br>E-Commerce</h2>
             <a href="https://josuaalexander02.github.io/" class="home-link">
-                <i class="fas fa-home"></i> Home
+                <i class="fas fa-home" aria-hidden="true"></i> Home
             </a>
+
+            <div class="project-meta">
+                <dl>
+                    <dt>Role</dt><dd>Data Analyst</dd>
+                    <dt>Type</dt><dd>EDA &amp; A/B Test</dd>
+                    <dt>Tools</dt><dd>Excel, Python, Tableau</dd>
+                </dl>
+            </div>
+
+            <nav class="toc" aria-label="Table of contents">
+                <p class="toc-label">On this page</p>
+                <a href="#summary">Project Summary</a>
+                <a href="#insights">Insights</a>
+                <a href="#resources">Additional Resources</a>
+                <a href="#background">Background &amp; Methodology</a>
+                <a href="#result">Result</a>
+                <a href="#key-summary">Key Summary</a>
+                <a href="#recommendations">Recommendations</a>
+            </nav>
         </aside>
     </div>
 
-    <button class="toggle-btn" id="toggleSidebar">
-        <i class="fas fa-chevron-left"></i>
+    <button class="toggle-btn" id="toggleSidebar" aria-label="Show or hide sidebar" aria-controls="sidebarContainer" aria-expanded="true">
+        <i class="fas fa-chevron-left" aria-hidden="true"></i>
     </button>
 
-    <main class="main-area">
+    <main class="main-area" id="main-content">
         <h1>Tokobli E-Commerce</h1>
+        <p class="subtitle">Campaign performance analysis, discount efficiency, and A/B testing across three Twin Date campaigns.</p>
+
+        <!-- KPI STRIP (baru) -->
+        <div class="kpi-strip">
+            <div class="kpi-card win">
+                <p class="label">Top Campaign</p>
+                <p class="value">12/12</p>
+                <p class="sub">Highest efficiency score (59)</p>
+            </div>
+            <div class="kpi-card">
+                <p class="label">Highest Revenue</p>
+                <p class="value">Rp16.6B</p>
+                <p class="sub">11/11 campaign</p>
+            </div>
+            <div class="kpi-card">
+                <p class="label">Most Transactions</p>
+                <p class="value">3,410</p>
+                <p class="sub">12/12 campaign</p>
+            </div>
+            <div class="kpi-card win">
+                <p class="label">A/B Test Result</p>
+                <p class="value">p &lt; 0.05</p>
+                <p class="sub">New UI significantly increases spending</p>
+            </div>
+        </div>
 
         <!-- PROJECT SUMMARY -->
-        <div class="section">
+        <section class="section" id="summary">
             <h2>Project Summary</h2>
             <ol>
                 <li>Clean the dataset using spreadsheet functions, specifically the filter and sort functions.</li>
@@ -266,10 +315,10 @@
                 <li>Create data visualizations.</li>
                 <li>Conduct hypothesis testing using A/B testing.</li>
             </ol>
-        </div>
+        </section>
 
         <!-- INSIGHTS -->
-        <div class="section">
+        <section class="section" id="insights">
             <h2>Insights</h2>
             <h3>Campaign Performance</h3>
             <ul>
@@ -292,24 +341,24 @@
             <ul>
                 <li>Since the p-value is &lt; 0.05, the alternative hypothesis (H1) is accepted, and the null hypothesis (H0) is rejected.</li>
             </ul>
-        </div>
+        </section>
 
         <!-- ADDITIONAL RESOURCES -->
-        <div class="section">
+        <section class="section" id="resources">
             <h2>Additional Resources</h2>
             <p>For a more comprehensive analysis and visualization, please open the project files.</p>
             <div class="file-links">
-                <a href="#" class="file-link" target="_blank">
-                    <i class="fas fa-file-powerpoint"></i> Presentation Deck
+                <a href="#" class="file-link disabled" aria-disabled="true">
+                    <i class="fas fa-file-powerpoint" aria-hidden="true"></i> Presentation Deck (coming soon)
                 </a>
-                <a href="#" class="file-link" target="_blank">
-                    <i class="fas fa-file-excel"></i> Dataset Spreadsheet File
+                <a href="#" class="file-link disabled" aria-disabled="true">
+                    <i class="fas fa-file-excel" aria-hidden="true"></i> Dataset Spreadsheet (coming soon)
                 </a>
             </div>
-        </div>
+        </section>
 
         <!-- PROJECT BACKGROUND, OBJECTIVE, AND METHODOLOGY -->
-        <div class="section">
+        <section class="section" id="background">
             <h2>Project Background, Objective, and Methodology</h2>
             <h3>Project Background</h3>
             <p>Tokobli is an e-commerce platform offering a diverse range of product categories. The platform leverages "Twin Date" campaign strategies to drive customer engagement and interaction. Recently, Tokobli introduced a new "Buy Now" button alongside a redesigned user interface on their platform. In this project, I will analyze the strategies applied across various campaigns to evaluate their respective performances. Furthermore, I will conduct A/B testing to determine whether the newly implemented features have a statistically significant impact on increasing user spending.</p>
@@ -326,17 +375,17 @@
                 <li><strong>Data Visualization:</strong> Creating charts and graphs from the analyzed data to facilitate the communication of insights.</li>
                 <li><strong>Recommendations:</strong> Providing actionable recommendations derived from the analysis results.</li>
             </ol>
-        </div>
+        </section>
 
         <!-- RESULT -->
-        <div class="section">
+        <section class="section" id="result">
             <h2>Result</h2>
 
             <h3>1. Descriptive Statistics Analysis</h3>
             <div class="image-gallery">
-                <img src="../assets/images/quantity.png" alt="Quantity">
-                <img src="../assets/images/discount.png" alt="Discount">
-                <img src="../assets/images/revenue.png" alt="Total Revenue">
+                <figure><img src="../assets/images/quantity.png" alt="Distribution of purchase quantity per transaction" loading="lazy"><figcaption>Quantity distribution</figcaption></figure>
+                <figure><img src="../assets/images/discount.png" alt="Distribution of discount value per transaction" loading="lazy"><figcaption>Discount distribution</figcaption></figure>
+                <figure><img src="../assets/images/revenue.png" alt="Distribution of total revenue per transaction" loading="lazy"><figcaption>Total revenue distribution</figcaption></figure>
             </div>
             <ul>
                 <li><strong>Quantity</strong><br>
@@ -350,56 +399,55 @@
             <h3>2. Campaign Performance Analysis</h3>
             <p><strong>Total Transaction by Campaign</strong></p>
             <div class="image-gallery">
-                <img src="../assets/images/total-transaction.png" alt="Total Transaction">
+                <figure><img src="../assets/images/total-transaction.png" alt="Total transactions per campaign" loading="lazy"><figcaption>Total transactions by campaign</figcaption></figure>
             </div>
             <p>Throughout the period, customers transacted most frequently during the 12/12 campaign. The pie chart highlights this peak, showing that the 12/12 event led the period with a total of 3,410 transactions.</p>
 
             <p><strong>Total Customer by Campaign</strong></p>
             <div class="image-gallery">
-                <img src="../assets/images/total-customer.png" alt="Total Customer">
+                <figure><img src="../assets/images/total-customer.png" alt="Total customers per campaign" loading="lazy"><figcaption>Total customers by campaign</figcaption></figure>
             </div>
             <p>The 11/11 campaign attracted the highest number of customers among all campaigns, totaling 1,567. In contrast, the 12/12 campaign recorded the lowest customer count with 1,447.</p>
 
             <p><strong>Total Product Sold by Campaign</strong></p>
             <div class="image-gallery">
-                <img src="../assets/images/total-product-sold.png" alt="Total Product Sold">
+                <figure><img src="../assets/images/total-product-sold.png" alt="Total product units sold per campaign" loading="lazy"><figcaption>Total product sold by campaign</figcaption></figure>
             </div>
             <p>The product sold the most units during the 12/12 campaign, with 4,486 units sold. The least units sold occurred during the 11/11 campaign, with 4,115 units sold.</p>
 
             <p><strong>Total Revenue by Campaign</strong></p>
             <div class="image-gallery">
-                <img src="../assets/images/total-revenue.png" alt="Total Revenue">
+                <figure><img src="../assets/images/total-revenue.png" alt="Total revenue per campaign" loading="lazy"><figcaption>Total revenue by campaign</figcaption></figure>
             </div>
             <p>The highest revenue occurred during the 11/11 campaign, amounting to Rp 16,622,135,800. The lowest revenue occurred during the 12/12 campaign, amounting to Rp 14,807,815,100.</p>
 
             <p><strong>Total Discount by Campaign</strong></p>
             <div class="image-gallery">
-                <img src="../assets/images/total-discount.png" alt="Total Discount">
+                <figure><img src="../assets/images/total-discount.png" alt="Total discount cost per campaign" loading="lazy"><figcaption>Total discount by campaign</figcaption></figure>
             </div>
             <p>The largest cumulative discount occurred during the 11/11 campaign period, amounting to Rp 302,636,200. The smallest cumulative discount occurred during the 12/12 campaign period, amounting to Rp 252,834,900.</p>
 
             <p><strong>Discount Efficiency Ratio by Campaign</strong></p>
             <div class="image-gallery">
-                <img src="../assets/images/revenue-per-discount.png" alt="Revenue per Discount">
-                <img src="../assets/images/discount-efficiency.png" alt="Discount Efficiency">
+                <figure><img src="../assets/images/revenue-per-discount.png" alt="Revenue generated per rupiah of discount" loading="lazy"><figcaption>Revenue per discount</figcaption></figure>
+                <figure><img src="../assets/images/discount-efficiency.png" alt="Discount efficiency ratio comparison" loading="lazy"><figcaption>Discount efficiency ratio</figcaption></figure>
             </div>
             <ul>
                 <li>Campaign 11/11 (The Revenue Champion): This campaign generated the highest Total Revenue (Rp16.6 Billion) and attracted the largest customer base. However, its discount efficiency ranked second with a ratio of 55.</li>
-                <li>Campaign 12/12 (The Efficiency & Volume Champion): Although its total revenue did not surpass the 11/11 campaign, it was the most budget-efficient (ratio of 59) and successfully recorded the highest number of transactions and items sold.</li>
+                <li>Campaign 12/12 (The Efficiency &amp; Volume Champion): Although its total revenue did not surpass the 11/11 campaign, it was the most budget-efficient (ratio of 59) and successfully recorded the highest number of transactions and items sold.</li>
             </ul>
 
             <h3>3. Product Category Performance Analysis</h3>
-            <!-- 10/10 Campaign -->
             <p><strong>Product Category Performance in the 10/10 Campaign</strong></p>
             <div class="image-gallery">
-                <img src="../assets/images/table-revenue-campaign-10.png" alt="Table Revenue">
-                <img src="../assets/images/bar-chart-revenue-campaign-10.png" alt="Bar Revenue">
+                <figure><img src="../assets/images/table-revenue-campaign-10.png" alt="Revenue table by product category, 10/10 campaign" loading="lazy"><figcaption>Revenue table — 10/10</figcaption></figure>
+                <figure><img src="../assets/images/bar-chart-revenue-campaign-10.png" alt="Revenue bar chart by product category, 10/10 campaign" loading="lazy"><figcaption>Revenue chart — 10/10</figcaption></figure>
             </div>
 
             <p><strong>Top-Performing Categories</strong></p>
             <ul>
                 <li><strong>Men's Fashion:</strong> This category served as the backbone of the campaign, generating the highest revenue of Rp3,381,140,000. It demonstrated highly optimal efficiency, with a discount expense ratio of only 1.00%.</li>
-                <li><strong>Beauty & Grooming:</strong> Secured the second position with a revenue of Rp2,942,085,500 and successfully recorded the highest product sales volume at 823 units.</li>
+                <li><strong>Beauty &amp; Grooming:</strong> Secured the second position with a revenue of Rp2,942,085,500 and successfully recorded the highest product sales volume at 823 units.</li>
             </ul>
 
             <p><strong>Underperforming Categories (Areas of Budget Leakage)</strong></p>
@@ -411,11 +459,10 @@
             <p><strong>Conclusion on Efficiency Decline</strong></p>
             <p>The excessive discount expenditures in the Superstore and Appliances categories failed to convert into proportional revenue. The budget leakage from these two problematic categories created a heavy financial burden, which even the outstanding performance of Men's Fashion could not fully offset. This dynamic ultimately dragged down the overall average performance, resulting in the 10/10 Campaign having the lowest discount efficiency rate.</p>
 
-            <!-- 11/11 Campaign -->
             <p><strong>Product Category Performance in the 11/11 Campaign</strong></p>
             <div class="image-gallery">
-                <img src="../assets/images/table-revenue-campaign-11.png" alt="Table Revenue">
-                <img src="../assets/images/bar-chart-revenue-campaign-11.png" alt="Bar Revenue">
+                <figure><img src="../assets/images/table-revenue-campaign-11.png" alt="Revenue table by product category, 11/11 campaign" loading="lazy"><figcaption>Revenue table — 11/11</figcaption></figure>
+                <figure><img src="../assets/images/bar-chart-revenue-campaign-11.png" alt="Revenue bar chart by product category, 11/11 campaign" loading="lazy"><figcaption>Revenue chart — 11/11</figcaption></figure>
             </div>
 
             <p><strong>Top-Performing Categories</strong></p>
@@ -425,75 +472,84 @@
 
             <p><strong>Underperforming Categories (Areas of Budget Leakage)</strong></p>
             <ul>
-                <li><strong>Kids & Baby:</strong> This category was the most severe source of inefficiency. Its discount expense ratio skyrocketed to 5.30% (the highest peak on the red line chart). Ironically, this substantial sacrifice in margin only yielded a minimal revenue of Rp388,691,000.</li>
+                <li><strong>Kids &amp; Baby:</strong> This category was the most severe source of inefficiency. Its discount expense ratio skyrocketed to 5.30% (the highest peak on the red line chart). Ironically, this substantial sacrifice in margin only yielded a minimal revenue of Rp388,691,000.</li>
                 <li><strong>Appliances:</strong> Continuing the wasteful trend from the previous campaign, this category consumed a discount expense ratio of 4.12%. This high cost proportion once again failed to convert into commensurate sales, with revenue stalling at Rp701,922,000.</li>
                 <li><strong>Superstore:</strong> Although it secured its position as the second-largest revenue contributor, its discount ratio remained relatively high at 2.98%, acting as a structural burden that continued to erode the company's profit margins.</li>
             </ul>
 
             <p><strong>Conclusion on Efficiency Constraints</strong></p>
-            <p>The severe explosion of budget inefficiency within the Kids & Baby and Appliances categories severely drained the promotional budget without delivering a meaningful Return on Investment (ROI). Consequently, the massive and highly efficient revenue generated by Men's Fashion was forced to act as a "cross-subsidy" to cover the wastefulness of other categories. This unbalanced burden dynamic ultimately restrained the overall performance of the 11/11 Campaign, limiting its discount efficiency score to only a marginal increase at 55.</p>
+            <p>The severe explosion of budget inefficiency within the Kids &amp; Baby and Appliances categories severely drained the promotional budget without delivering a meaningful Return on Investment (ROI). Consequently, the massive and highly efficient revenue generated by Men's Fashion was forced to act as a "cross-subsidy" to cover the wastefulness of other categories. This unbalanced burden dynamic ultimately restrained the overall performance of the 11/11 Campaign, limiting its discount efficiency score to only a marginal increase at 55.</p>
 
-            <!-- 12/12 Campaign -->
             <p><strong>Product Category Performance in the 12/12 Campaign</strong></p>
             <div class="image-gallery">
-                <img src="../assets/images/table-revenue-campaign-12.png" alt="Table Revenue">
-                <img src="../assets/images/bar-chart-revenue-campaign-12.png" alt="Bar Revenue">
+                <figure><img src="../assets/images/table-revenue-campaign-12.png" alt="Revenue table by product category, 12/12 campaign" loading="lazy"><figcaption>Revenue table — 12/12</figcaption></figure>
+                <figure><img src="../assets/images/bar-chart-revenue-campaign-12.png" alt="Revenue bar chart by product category, 12/12 campaign" loading="lazy"><figcaption>Revenue chart — 12/12</figcaption></figure>
             </div>
 
             <p><strong>Top-Performing Categories</strong></p>
             <ul>
                 <li><strong>Men's Fashion:</strong> Successfully maintained its position as the reigning champion. This category recorded the highest revenue at Rp3,013,368,000 with a highly healthy discount efficiency rate of 1.10%.</li>
-                <li><strong>Health & Sports:</strong> Emerged as the new star of this year-end campaign. It secured the second position with a revenue of Rp2,050,742,000 and set a new record for the highest sales volume (935 units). Remarkably, this massive performance was achieved with a highly efficient discount ratio of only 1.14%.</li>
+                <li><strong>Health &amp; Sports:</strong> Emerged as the new star of this year-end campaign. It secured the second position with a revenue of Rp2,050,742,000 and set a new record for the highest sales volume (935 units). Remarkably, this massive performance was achieved with a highly efficient discount ratio of only 1.14%.</li>
             </ul>
 
             <p><strong>Underperforming Categories (Areas of Budget Leakage)</strong></p>
             <ul>
                 <li><strong>Superstore:</strong> Proving that the issues within this category are structural, Superstore once again ranked first as the most wasteful category. Its discount expense ratio peaked at 3.57%, while its revenue lagged behind at Rp1,280,959,200.</li>
-                <li><strong>School & Education:</strong> Emerged as a new area of inefficiency at the end of the year with a discount ratio of 2.97%. Despite this high ratio, the category only managed to contribute a minuscule revenue (Rp95,602,000), making it a loss-making promotional investment.</li>
+                <li><strong>School &amp; Education:</strong> Emerged as a new area of inefficiency at the end of the year with a discount ratio of 2.97%. Despite this high ratio, the category only managed to contribute a minuscule revenue (Rp95,602,000), making it a loss-making promotional investment.</li>
             </ul>
 
             <p><strong>Conclusion on Efficiency Improvement</strong></p>
-            <p>Unlike previous months, the 12/12 Campaign successfully achieved the highest efficiency score (59) due to a healthy, balanced performance distribution. The emergence of Health & Sports and Beauty & Grooming, which contributed substantial revenues with discount ratios below 2%, significantly helped alleviate the burden on Men's Fashion. The solid performance across these various top categories collectively "cushioned" the impact of Superstore's structural wastefulness, successfully elevating the overall campaign's average efficiency to an optimal point.</p>
+            <p>Unlike previous months, the 12/12 Campaign successfully achieved the highest efficiency score (59) due to a healthy, balanced performance distribution. The emergence of Health &amp; Sports and Beauty &amp; Grooming, which contributed substantial revenues with discount ratios below 2%, significantly helped alleviate the burden on Men's Fashion. The solid performance across these various top categories collectively "cushioned" the impact of Superstore's structural wastefulness, successfully elevating the overall campaign's average efficiency to an optimal point.</p>
 
-            <!-- Hypothesis Testing Result -->
             <h3>4. Hypothesis Testing Result</h3>
             <div class="image-gallery">
-                <img src="../assets/images/hypothesis-result.png" alt="Hypothesis Result">
+                <figure><img src="../assets/images/hypothesis-result.png" alt="A/B test hypothesis result comparing old and new UI" loading="lazy"><figcaption>A/B test result</figcaption></figure>
             </div>
             <p><strong>Since P-Value &lt; 0.05, we reject the null hypothesis.</strong></p>
-            <p>The difference in average transactions between the old and new designs was statistically significant. This means the "Buy Now" button and the new layout are truly effective in increasing user spending on TokoBli.</p>
-        </div>
+            <p>The difference in average transactions between the old and new designs was statistically significant. This means the "Buy Now" button and the new layout are truly effective in increasing user spending on Tokobli.</p>
+        </section>
 
-        <!-- KEY SUMMARY -->
-        <div class="section">
+        <!-- KEY SUMMARY as VERDICT CARDS -->
+        <section class="section" id="key-summary">
             <h2>Key Summary</h2>
-
-            <p><strong>Top Campaign: 12/12 Campaign (Maximum Volume & Efficiency)</strong></p>
-            <ul>
-                <li><strong>Conversion Champion:</strong> This campaign is the absolute winner. Despite having the lowest customer count (1,447 customers), the 12/12 campaign successfully generated the highest total transactions (3,410) and the most items sold (4,486 items).</li>
-                <li><strong>Solid Purchasing Power:</strong> Customers during this month had the largest basket size (averaging ~1.31 products per transaction), indicating a highly loyal audience quality that is willing to spend.</li>
-                <li><strong>Efficiency Drivers:</strong> The efficiency score peaked at 59. The healthy fundamentals of Men's Fashion and the volume explosion from Health & Sports (both with discount ratios below 2%) successfully cushioned the inefficiency burden from the Superstore category.</li>
-            </ul>
-
-            <p><strong>Worst Campaign: 10/10 Campaign (Budget Inefficiency)</strong></p>
-            <ul>
-                <li><strong>Conversion Crisis:</strong> This campaign ranked at the bottom, recording the lowest total transactions (3,333).</li>
-                <li><strong>Budget Leakage:</strong> The efficiency score slumped to 54. Although the total items sold were relatively decent (4,215 items), the discount budget was heavily drained by the Superstore (3.85%) and Appliances (3.12%) categories without yielding proportional revenue returns. The outstanding success of Men's Fashion failed to salvage the overall margin of this campaign.</li>
-            </ul>
-
-            <p><strong>Anomaly Note: 11/11 Campaign (High Traffic, Low Volume)</strong></p>
-            <ul>
-                <li>This campaign was highly successful as a customer acquisition tool (reaching the highest count at 1,567 customers). However, it recorded the lowest product sales (4,115 items) with the smallest basket size (~1.21 products per transaction). Customers reacted more impulsively, purchasing items in smaller quantities. The efficiency score stalled at 55 due to a massive surge in discount waste within the Kids & Baby category (5.30%).</li>
-            </ul>
-        </div>
+            <div class="verdict-grid">
+                <div class="verdict-card top">
+                    <span class="tag">Top campaign</span>
+                    <h3>12/12 — Maximum Volume &amp; Efficiency</h3>
+                    <ul>
+                        <li><strong>Conversion champion:</strong> lowest customer count (1,447) yet highest transactions (3,410) and items sold (4,486).</li>
+                        <li><strong>Solid basket size:</strong> ~1.31 products per transaction, indicating loyal, high-spend customers.</li>
+                        <li><strong>Efficiency score peaked at 59</strong>, cushioned by Men's Fashion and Health &amp; Sports (both under 2% discount ratio).</li>
+                    </ul>
+                </div>
+                <div class="verdict-card worst">
+                    <span class="tag">Worst campaign</span>
+                    <h3>10/10 — Budget Inefficiency</h3>
+                    <ul>
+                        <li><strong>Lowest total transactions</strong> of the period (3,333).</li>
+                        <li><strong>Efficiency score slumped to 54</strong> — discount budget drained by Superstore (3.85%) and Appliances (3.12%) without proportional revenue return.</li>
+                        <li>Men's Fashion's strong performance couldn't fully offset the margin loss.</li>
+                    </ul>
+                </div>
+                <div class="verdict-card anomaly">
+                    <span class="tag">Anomaly</span>
+                    <h3>11/11 — High Traffic, Low Volume</h3>
+                    <ul>
+                        <li><strong>Best acquisition tool:</strong> highest customer count (1,567) of all campaigns.</li>
+                        <li><strong>But lowest product sales</strong> (4,115 items) and smallest basket size (~1.21 products/transaction) — more impulsive, smaller purchases.</li>
+                        <li>Efficiency stalled at 55 due to a discount waste surge in Kids &amp; Baby (5.30%).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
         <!-- RECOMMENDATIONS -->
-        <div class="section">
+        <section class="section" id="recommendations">
             <h2>Recommendations</h2>
             <ol>
                 <li><strong>Implement Minimum Purchase Thresholds</strong><br>
                 Replace unconditional free shipping with a minimum spend requirement (e.g., Rp250,000 threshold). This directly incentivizes customers to add more items to their cart, effectively increasing the overall basket size.</li>
-                <li><strong>Superstore: Shift to Volume Discounts & Bundling</strong><br>
+                <li><strong>Superstore: Shift to Volume Discounts &amp; Bundling</strong><br>
                 Since this category consists of high-repurchase daily essentials, replace flat 10% discounts with volume promos (e.g., "Buy 3, Get 15% Off") or product bundles. This moves more inventory in a single delivery while maintaining perceived customer value.</li>
                 <li><strong>Appliances: Offer Value-Added Incentives</strong><br>
                 Instead of giving flat percentage discounts on high-ticket electronics—which heavily cuts into margins—offer lower-cost added values. Alternatives include free extended warranties or complementary low-cost items (e.g., a free Superstore item with a rice cooker purchase).</li>
@@ -502,25 +558,52 @@
                 <li><strong>Permanently Implement the New UI/UX</strong><br>
                 A/B testing statistically proves (P-Value &lt; 0.05) that the new layout and the "Buy Now" button are highly effective, successfully raising the average transaction value to Rp830,460. These features should be permanently integrated across the entire platform.</li>
             </ol>
-        </div>
+        </section>
     </main>
+
+    <button id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
 
     <script>
         const toggleBtn = document.getElementById('toggleSidebar');
         const body = document.body;
 
         toggleBtn.addEventListener('click', () => {
-            body.classList.toggle('sidebar-closed');
+            const isClosed = body.classList.toggle('sidebar-closed');
+            toggleBtn.setAttribute('aria-expanded', String(!isClosed));
             const icon = toggleBtn.querySelector('i');
-            if (body.classList.contains('sidebar-closed')) {
-                icon.classList.remove('fa-chevron-left');
-                icon.classList.add('fa-chevron-right');
-            } else {
-                icon.classList.remove('fa-chevron-right');
-                icon.classList.add('fa-chevron-left');
+            icon.classList.toggle('fa-chevron-left', !isClosed);
+            icon.classList.toggle('fa-chevron-right', isClosed);
+        });
+
+        // Highlight TOC link sesuai section yang sedang dilihat (baru)
+        const sections = document.querySelectorAll('.section[id]');
+        const tocLinks = document.querySelectorAll('.toc a');
+        const tocObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const link = document.querySelector(`.toc a[href="#${entry.target.id}"]`);
+                if (link && entry.isIntersecting) {
+                    tocLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+        sections.forEach(s => tocObserver.observe(s));
+
+        // Back to top (throttled dengan rAF)
+        const backToTopBtn = document.getElementById('backToTop');
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    backToTopBtn.classList.toggle('show', window.scrollY > 400);
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
+        backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     </script>
-
 </body>
 </html>
