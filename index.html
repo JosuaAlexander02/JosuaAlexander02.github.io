@@ -5,70 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Josua Naibaho | Data Analyst Portfolio</title>
     <meta name="description" content="Portfolio profesional Josua Alexander Naibaho - Data Analyst, Business Intelligence, dan Visualisasi Data." />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- ===== SEO / Open Graph (baru) ===== -->
+    <meta property="og:title" content="Josua Naibaho | Data Analyst Portfolio" />
+    <meta property="og:description" content="Data Analyst dengan fokus pada visualisasi data, business intelligence, dan data storytelling." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://ui-avatars.com/api/?name=Josua+Naibaho&background=38bdf8&color=fff&size=512&bold=true" />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- ===== Structured data (baru) ===== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Josua Alexander Naibaho",
+        "jobTitle": "Data Analyst",
+        "email": "mailto:Josuaalexandernaibaho@gmail.com",
+        "sameAs": [
+            "https://www.linkedin.com/in/josua-alexander/",
+            "https://www.instagram.com/josua_naibaho01/"
+        ]
+    }
+    </script>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Font Awesome versi stabil terbaru (sebelumnya beta3) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+    <!-- Tipografi baru: Sora untuk display/heading, Inter untuk body -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* ========== 1. CSS VARIABLES (UNTUK DARK/LIGHT MODE) ========== */
+        /* ========== 1. CSS VARIABLES ========== */
         :root {
+            /* Warna aksen dijadikan variable (sebelumnya hardcode #38bdf8 di ±15 tempat) */
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --accent-rgb: 56, 189, 248;
+            /* Warna sekunder untuk highlight ala dashboard BI (biru = data utama, amber = sorotan) */
+            --highlight: #f59e0b;
+            --highlight-rgb: 245, 158, 11;
+
+            --header-height: 76px;
+
             --bg-body: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
             --bg-card: rgba(255, 255, 255, 0.05);
             --bg-card-solid: #1e293b;
             --text-primary: #f8fafc;
             --text-secondary: #cbd5e1;
             --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.14);
             --shadow-color: rgba(0, 0, 0, 0.3);
-            --header-bg: rgba(44, 62, 80, 0.9);
-            --footer-bg: rgba(44, 62, 80, 0.9);
-            --toggle-bg: rgba(255, 255, 255, 0.8);
-            --toggle-color: #2c3e50;
-            --marquee-bg: #ffffffcc;
-            --marquee-color: #2c3e50;
-            --skill-bg: rgba(255, 255, 255, 0.1);
-            --skill-fill: #38bdf8;
-            --cert-gradient: linear-gradient(135deg, #1e293b, #0f172a);
-            --filter-bg: rgba(255, 255, 255, 0.1);
-            --filter-active: #38bdf8;
+            --header-bg: rgba(15, 23, 42, 0.85);
+            --footer-bg: rgba(15, 23, 42, 0.85);
+            --toggle-bg: rgba(255, 255, 255, 0.85);
+            --toggle-color: #0f172a;
+            --hero-pill-bg: #ffffffcc;
+            --hero-pill-color: #0f172a;
+            --skill-bg: rgba(255, 255, 255, 0.08);
+            --skill-track: rgba(255, 255, 255, 0.1);
+            --filter-bg: rgba(255, 255, 255, 0.08);
+            --filter-active: var(--accent);
             --filter-text: #f1f5f9;
+
+            /* Sistem radius terpadu (sebelumnya 12/16/20/30px acak) */
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-pill: 999px;
         }
 
-        /* MODE TERANG (LIGHT MODE) */
         body.light-mode {
-            --bg-body: radial-gradient(circle at center, #f0f9ff 0%, #e2e8f0 100%);
-            --bg-card: rgba(255, 255, 255, 0.7);
+            --bg-body: radial-gradient(circle at center, #eef4fb 0%, #dbe6f3 100%);
+            --bg-card: rgba(255, 255, 255, 0.92);
             --bg-card-solid: #ffffff;
             --text-primary: #0f172a;
             --text-secondary: #1e293b;
             --text-muted: #475569;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --header-bg: rgba(255, 255, 255, 0.85);
-            --footer-bg: rgba(255, 255, 255, 0.85);
-            --toggle-bg: rgba(44, 62, 80, 0.8);
+            /* Kontras border/shadow dinaikkan supaya card tidak "pudar" di light mode */
+            --border-color: rgba(15, 23, 42, 0.14);
+            --shadow-color: rgba(15, 23, 42, 0.14);
+            --header-bg: rgba(255, 255, 255, 0.92);
+            --footer-bg: rgba(255, 255, 255, 0.92);
+            --toggle-bg: rgba(15, 23, 42, 0.85);
             --toggle-color: #ffffff;
-            --marquee-bg: #1e293bcc;
-            --marquee-color: #f8fafc;
-            --skill-bg: rgba(0, 0, 0, 0.08);
-            --skill-fill: #0284c7;
-            --cert-gradient: linear-gradient(135deg, #f8fafc, #e2e8f0);
-            --filter-bg: rgba(0, 0, 0, 0.05);
-            --filter-active: #0284c7;
+            --hero-pill-bg: #0f172acc;
+            --hero-pill-color: #f8fafc;
+            --skill-bg: rgba(15, 23, 42, 0.06);
+            --skill-track: rgba(15, 23, 42, 0.08);
+            --filter-bg: rgba(15, 23, 42, 0.05);
+            --filter-active: var(--accent-hover);
             --filter-text: #0f172a;
         }
 
         /* ========== 2. RESET & GLOBAL ========== */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
-        html {
-            scroll-behavior: smooth;
+        /* Hormati preferensi reduced motion (baru) */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg-body);
             min-height: 100vh;
             display: flex;
@@ -77,141 +120,118 @@
             transition: background 0.4s ease, color 0.3s ease;
         }
 
-        /* ========== 3. SCROLL REVEAL (DEFAULT SEMBUNYI) ========== */
+        h1, h2, h3, h4 { font-family: 'Sora', 'Segoe UI', sans-serif; }
+
+        a { color: inherit; }
+
+        /* Skip-to-content link (baru, aksesibilitas keyboard) */
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: 0;
+            background: var(--accent);
+            color: #0f172a;
+            padding: 10px 18px;
+            border-radius: 0 0 var(--radius-sm) 0;
+            font-weight: 600;
+            z-index: 200;
+        }
+        .skip-link:focus {
+            left: 0;
+        }
+
+        /* Focus ring konsisten untuk semua elemen interaktif (baru) */
+        a:focus-visible, button:focus-visible, summary:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            border-radius: var(--radius-sm);
+        }
+
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ========== 4. HEADER ========== */
+        /* ========== 3. HEADER ========== */
         .header {
             background: var(--header-bg);
-            padding: 15px 20px;
+            padding: 12px 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
             display: grid;
-            grid-template-columns: 50px 1fr 50px;
+            grid-template-columns: 44px 1fr 44px;
             align-items: center;
-            gap: 10px;
-            transition: background 0.3s ease;
+            gap: 12px;
+            height: var(--header-height);
         }
 
-        /* Tombol Toggle Sidebar */
-        .toggle-btn {
-            justify-self: start;
+        .icon-btn {
             background: var(--toggle-bg);
             border: none;
             border-radius: 50%;
             width: 40px;
             height: 40px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(5px);
-            transition: background 0.3s, transform 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--toggle-color);
+            transition: transform 0.2s, background 0.3s;
         }
-        .toggle-btn:hover {
-            transform: scale(1.05);
-        }
+        .icon-btn:hover { transform: scale(1.06); }
+        #themeToggle:hover { transform: scale(1.06) rotate(15deg); }
 
-        /* Tombol Dark Mode */
-        .theme-toggle {
-            justify-self: end;
-            background: var(--toggle-bg);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(5px);
-            transition: background 0.3s, transform 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--toggle-color);
-        }
-        .theme-toggle:hover {
-            transform: scale(1.05) rotate(20deg);
-        }
-
-        /* Marquee diganti dengan Hero Text (Typing) */
-        .hero-text {
+        .hero-eyebrow {
             grid-column: 2;
             width: 100%;
-            background: var(--marquee-bg);
-            border-radius: 30px;
-            padding: 12px 20px;
+            background: var(--hero-pill-bg);
+            border-radius: var(--radius-pill);
+            padding: 10px 20px;
             text-align: center;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
-            transition: background 0.3s;
         }
-        .hero-text p {
+        .hero-eyebrow p {
             margin: 0;
-            font-weight: bold;
-            color: var(--marquee-color);
-            font-size: 1rem;
-            transition: color 0.3s;
+            font-weight: 600;
+            color: var(--hero-pill-color);
+            font-size: 0.95rem;
         }
-        .hero-text .typing-cursor {
+        .typing-cursor {
             display: inline-block;
             width: 2px;
             margin-left: 2px;
-            background: var(--marquee-color);
+            background: var(--hero-pill-color);
             animation: blink 0.8s step-end infinite;
         }
-        @keyframes blink {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
 
-        /* ========== 5. SIDEBAR ========== */
+        /* ========== 4. SIDEBAR ========== */
         .info-panel-left {
             position: fixed;
-            top: 80px;
+            top: var(--header-height);
             left: 0;
             bottom: 0;
             width: 280px;
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.92);
             backdrop-filter: blur(12px);
             box-shadow: 2px 0 10px var(--shadow-color);
             padding: 25px 20px;
             overflow-y: auto;
             z-index: 90;
             border-right: 1px solid var(--border-color);
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.35s ease,
-                background 0.3s ease;
-            transform: translateX(0);
-            opacity: 1;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
         }
-        body.light-mode .info-panel-left {
-            background: rgba(255, 255, 255, 0.9);
-        }
+        body.light-mode .info-panel-left { background: rgba(255, 255, 255, 0.96); }
 
         body.sidebar-hidden .info-panel-left {
             transform: translateX(-100%);
@@ -219,797 +239,575 @@
             pointer-events: none;
         }
 
-        .info-card {
-            text-align: center;
-            color: var(--text-primary);
+        /* Overlay khusus mobile saat sidebar terbuka (baru, memperbaiki UX mobile) */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            top: var(--header-height);
+            background: rgba(2, 6, 23, 0.55);
+            z-index: 85;
         }
-        .info-card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(56, 189, 248, 0.5);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            margin-bottom: 10px;
-        }
-        .info-card h3 {
-            font-size: 1.3rem;
-            color: var(--text-primary);
-        }
-        .info-card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin: 5px 0;
+        @media (max-width: 768px) {
+            body:not(.sidebar-hidden) .sidebar-overlay { display: block; }
         }
 
-        /* Tombol Download CV di Sidebar */
+        .info-card { text-align: center; color: var(--text-primary); }
+        .info-card img {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(var(--accent-rgb), 0.55);
+            margin-bottom: 10px;
+        }
+        .info-card h3 { font-size: 1.2rem; }
+        .info-card p { font-size: 0.88rem; color: var(--text-muted); margin: 4px 0; }
+
+        /* Mini "status" widget di sidebar mengisi ruang kosong (baru) */
+        .sidebar-status {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+        }
+        .sidebar-status-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .sidebar-status-value { color: var(--text-primary); font-weight: 600; }
+
         .btn-cv {
-            display: inline-block;
-            background: #38bdf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--accent);
             color: #0f172a;
             padding: 10px 20px;
-            border-radius: 30px;
+            border-radius: var(--radius-pill);
             font-weight: 700;
             text-decoration: none;
-            text-align: center;
             transition: background 0.3s, transform 0.2s;
-            margin-top: 5px;
             border: none;
             font-size: 0.95rem;
             cursor: pointer;
         }
-        .btn-cv:hover {
-            background: #0284c7;
-            color: white;
-            transform: scale(1.02);
-        }
-        body.light-mode .btn-cv {
-            color: #fff;
-        }
-        body.light-mode .btn-cv:hover {
-            color: #fff;
-        }
+        .btn-cv:hover { background: var(--accent-hover); color: white; transform: scale(1.02); }
+        .btn-cv[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 
-        /* ========== 6. KONTEN UTAMA ========== */
+        /* ========== 5. KONTEN UTAMA ========== */
         .konten {
             margin-left: 280px;
             padding: 40px 40px 20px;
             text-align: center;
             transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             flex: 1;
-            background: transparent;
-            max-width: 1200px;
-            margin-left: auto;
+            max-width: 920px;
             margin-right: auto;
-            width: 100%;
         }
-        /* Saat sidebar muncul, konten di-desktop harus bergeser */
         @media (min-width: 769px) {
-            .konten {
-                margin-left: 280px;
-                max-width: calc(1200px + 280px);
-            }
-            body.sidebar-hidden .konten {
-                margin-left: 0;
-                max-width: 1200px;
-            }
+            body.sidebar-hidden .konten { margin-left: auto; }
         }
         @media (max-width: 768px) {
-            .konten {
-                margin-left: 0;
-                max-width: 100%;
-                padding: 20px 15px;
-            }
+            .konten { margin-left: 0; max-width: 100%; padding: 20px 15px; }
         }
 
-        .konten h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.2em;
-            color: var(--text-primary);
-            transition: color 0.3s;
-        }
-        .konten>p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--text-muted);
-        }
+        .konten h1 { font-size: 2.6rem; margin-bottom: 0.15em; color: var(--text-primary); line-height: 1.15; }
+        .lead { font-size: 1.15rem; margin-bottom: 30px; color: var(--text-muted); }
 
-        /* ========== 7. HERO STATS (METRIK) ========== */
-        .stats-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px 50px;
+        /* ========== 6. HERO STATS + SPARKLINE (baru, dashboard aesthetic) ========== */
+        .stats-panel {
             background: var(--bg-card);
-            backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 25px 20px;
+            border-radius: var(--radius-md);
+            padding: 22px 24px 18px;
             margin: 0 auto 40px;
-            max-width: 800px;
-            transition: background 0.3s, border 0.3s;
+            max-width: 780px;
+            text-align: left;
         }
-        .stat-item {
-            text-align: center;
+        .sparkline-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
         }
-        .stat-item span {
-            display: block;
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #38bdf8;
-            line-height: 1.2;
+        .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+        .sparkline { display: block; width: 100%; height: 40px; margin-bottom: 18px; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
         }
-        .stat-item p {
-            margin: 0;
-            font-size: 0.9rem;
+        .stat-card {
+            background: var(--skill-bg);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+        }
+        .stat-card.highlight { background: rgba(34, 197, 94, 0.14); }
+        .stat-card p.label {
+            font-size: 0.78rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
         }
+        .stat-card p.value { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+        .stat-card.highlight p.value { color: #22c55e; }
+        .mini-bars { display: flex; align-items: flex-end; gap: 3px; height: 16px; }
+        .mini-bars span { width: 7px; background: var(--accent); border-radius: 2px; }
+        .progress-track { height: 5px; background: var(--skill-track); border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #22c55e; }
 
-        /* ========== 8. ABOUT ME (REVISI TERBARU) ========== */
+        /* ========== 7. ABOUT ME ========== */
         .about-section {
             background: var(--bg-card);
-            backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px 35px;
-            margin: 0 auto 40px;
-            max-width: 900px;
+            border-radius: var(--radius-md);
+            padding: 30px 32px;
+            margin: 0 auto 36px;
+            max-width: 780px;
             text-align: left;
             line-height: 1.7;
             box-shadow: 0 4px 12px var(--shadow-color);
-            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
         }
-        .about-section h2 {
-            margin-top: 0;
+        .about-section h2 { margin: 0 0 14px; color: var(--text-primary); font-size: 1.4rem; text-align: center; }
+        .about-section > p { color: var(--text-secondary); }
+
+        .skills-block { margin-top: 26px; }
+        .skills-block h4 {
             color: var(--text-primary);
-            text-align: center;
-            transition: color 0.3s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
         }
-        .about-section p {
+        .skills-block h4 i { color: var(--accent); }
+        .skill-row { margin-bottom: 12px; }
+        .skill-row-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
             color: var(--text-secondary);
         }
+        .skill-row-top span.level { color: var(--text-muted); }
+        .skill-row.mid .progress-fill { background: var(--highlight); }
 
-        /* Grid 2 kolom untuk "Technical Skills" dan "Tools" */
-        .about-grid {
+        .tools-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .about-grid .tools-column {
-            border-left: 4px solid #38bdf8;
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 18px 22px;
-            transition: background 0.3s;
-        }
-        .about-grid .tools-column h4 {
-            color: var(--text-primary);
-            margin-top: 0;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .about-grid .tools-column h4 i {
-            color: #38bdf8;
-        }
-        .about-grid .tools-column ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .about-grid .tools-column li {
-            margin: 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-secondary);
-        }
-        .about-grid .tools-column li i {
-            color: #38bdf8;
-            width: 16px;
-        }
-
-        /* ========== 9. FILTER TOMBOL ========== */
-        .filter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
             gap: 10px;
-            margin-bottom: 25px;
+            margin-top: 8px;
         }
+        .tool-chip {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px 8px;
+            text-align: center;
+            background: var(--skill-bg);
+        }
+        .tool-chip i { font-size: 1.3rem; color: var(--accent); }
+        .tool-chip p { font-size: 0.78rem; margin-top: 6px; color: var(--text-secondary); }
+
+        /* ========== 8. FILTER TOMBOL ========== */
+        .filter-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 25px; }
         .filter-btn {
             background: var(--filter-bg);
             color: var(--filter-text);
             border: 1px solid var(--border-color);
             padding: 8px 22px;
-            border-radius: 30px;
+            border-radius: var(--radius-pill);
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
         }
-        .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .filter-btn.active {
-            background: var(--filter-active);
-            color: #0f172a;
-            border-color: var(--filter-active);
-        }
-        body.light-mode .filter-btn.active {
-            color: #fff;
-        }
+        .filter-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+        .filter-btn[aria-pressed="true"] { background: var(--filter-active); color: #0f172a; border-color: var(--filter-active); }
+        body.light-mode .filter-btn[aria-pressed="true"] { color: #fff; }
 
-        /* ========== 10. DROPDOWN & PROJECT CARDS ========== */
+        /* ========== 9. DROPDOWN & PROJECT CARDS ========== */
         .dropdown-container {
-            max-width: 1000px;
-            margin: 0 auto 40px;
+            max-width: 900px;
+            margin: 0 auto 36px;
             background: var(--bg-card);
-            backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: var(--radius-md);
             box-shadow: 0 4px 12px var(--shadow-color);
             overflow: hidden;
-            transition: background 0.3s, border 0.3s;
         }
         .dropdown-container summary {
             list-style: none;
             cursor: pointer;
             padding: 18px 25px;
-            font-size: 1.3rem;
-            font-weight: bold;
+            font-size: 1.2rem;
+            font-weight: 600;
             color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.03);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: background 0.3s;
         }
-        .dropdown-container summary::-webkit-details-marker {
-            display: none;
-        }
-        .dropdown-container summary:hover {
-            background: rgba(255, 255, 255, 0.06);
-        }
+        .dropdown-container summary::-webkit-details-marker { display: none; }
         .dropdown-container summary::after {
             content: "\f107";
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             transition: transform 0.3s;
         }
-        details[open] summary::after {
-            transform: rotate(180deg);
-        }
+        details[open] summary::after { transform: rotate(180deg); }
 
         .projects-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
             padding: 20px 25px;
         }
 
         .project-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
+            background: var(--bg-card-solid);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: var(--radius-md);
             box-shadow: 0 8px 20px var(--shadow-color);
             overflow: hidden;
-            width: 320px;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
             text-align: left;
             display: flex;
             flex-direction: column;
         }
-        .project-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 14px 28px var(--shadow-color);
-        }
-        .project-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            background-color: #1e293b;
-            border-bottom: 2px solid var(--border-color);
-        }
-        .project-info {
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .project-info h3 {
-            margin: 0 0 8px;
-            font-size: 1.3rem;
-            color: var(--text-primary);
-        }
-        .project-info p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin: 0 0 12px;
-        }
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 12px;
-        }
-        .project-tags span {
-            background: var(--skill-bg);
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-weight: 500;
-        }
-        .project-tools {
-            background: var(--skill-bg);
-            border-radius: 10px;
-            padding: 10px 12px;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
-        }
-        .project-tools h4 {
-            margin: 0 0 6px;
-            color: var(--text-primary);
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .project-tools ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .project-tools li {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-secondary);
-        }
-        .project-tools li i {
-            font-size: 1rem;
-            color: #38bdf8;
-        }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 14px 28px var(--shadow-color); }
+        .project-card img { width: 100%; height: 160px; object-fit: cover; background-color: #1e293b; }
+        .project-info { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .project-info h3 { margin: 0 0 8px; font-size: 1.2rem; color: var(--text-primary); }
+        .project-info p.desc { font-size: 0.92rem; color: var(--text-muted); margin: 0 0 12px; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+        .project-tags span { background: var(--skill-bg); color: var(--text-secondary); font-size: 0.7rem; padding: 4px 10px; border-radius: var(--radius-pill); font-weight: 500; }
+        .project-tools { background: var(--skill-bg); border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 12px; font-size: 0.85rem; }
+        .project-tools ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+        .project-tools li { display: flex; align-items: center; gap: 4px; color: var(--text-secondary); }
+        .project-tools li i { color: var(--accent); }
         .project-link {
             display: inline-block;
             text-decoration: none;
-            background: #38bdf8;
+            background: var(--accent);
             color: #0f172a;
             padding: 8px 20px;
-            border-radius: 20px;
+            border-radius: var(--radius-pill);
             font-size: 0.9rem;
             font-weight: 600;
             transition: background 0.3s, color 0.3s;
             text-align: center;
             margin-top: auto;
         }
-        .project-link:hover {
-            background: #0284c7;
-            color: white;
+        .project-link:hover { background: var(--accent-hover); color: white; }
+        /* Status "coming soon" untuk proyek yang belum publish (memperbaiki broken link) */
+        .project-link.disabled {
+            background: var(--skill-bg);
+            color: var(--text-muted);
+            pointer-events: none;
         }
 
-        /* ========== 11. SERTIFIKAT ========== */
+        /* ========== 10. SERTIFIKAT ========== */
         .certificate-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
             padding: 20px 25px;
         }
         .certificate-card {
-            background: var(--cert-gradient);
-            border-left: 6px solid #38bdf8;
-            border-radius: 12px;
+            background: var(--bg-card-solid);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-sm);
             padding: 15px 20px;
-            width: 260px;
             box-shadow: 0 4px 10px var(--shadow-color);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: left;
+            transition: transform 0.3s;
         }
-        .certificate-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px var(--shadow-color);
-        }
-        .certificate-card i {
-            font-size: 1.8rem;
-            color: #38bdf8;
-            margin-bottom: 8px;
-        }
-        .certificate-card h4 {
-            margin: 0 0 6px;
-            color: var(--text-primary);
-            font-size: 1.1rem;
-        }
+        .certificate-card:hover { transform: translateY(-3px); }
+        .certificate-card i { font-size: 1.6rem; color: var(--accent); margin-bottom: 8px; display: block; }
+        .certificate-card h4 { margin: 0 0 6px; color: var(--text-primary); font-size: 1.05rem; }
         .certificate-card a {
             text-decoration: none;
             color: var(--text-muted);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            transition: color 0.2s;
         }
-        .certificate-card a:hover {
-            color: #38bdf8;
-        }
+        .certificate-card a:hover { color: var(--accent); }
+        .certificate-card .cert-pending { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
 
-        /* ========== 12. TESTIMONIALS ========== */
+        /* ========== 11. TESTIMONIALS ========== */
         .testimonials-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            padding: 10px 0 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
             max-width: 900px;
             margin: 0 auto;
         }
         .testimonial-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px 25px;
-            width: 280px;
+            border-radius: var(--radius-md);
+            padding: 20px 24px;
             text-align: left;
-            box-shadow: 0 4px 12px var(--shadow-color);
-            transition: background 0.3s, border 0.3s;
         }
-        .testimonial-card i.fa-quote-left {
-            color: #38bdf8;
-            font-size: 1.4rem;
-            opacity: 0.6;
-            margin-bottom: 8px;
-            display: block;
-        }
-        .testimonial-card p {
-            font-style: italic;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin: 0 0 10px;
-        }
-        .testimonial-card .author {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-style: normal;
-        }
-        .testimonial-card .role {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-style: normal;
-        }
+        .testimonial-card i.fa-quote-left { color: var(--accent); font-size: 1.3rem; opacity: 0.6; margin-bottom: 8px; display: block; }
+        .testimonial-card p { font-style: italic; color: var(--text-secondary); font-size: 0.92rem; margin: 0 0 10px; }
+        .testimonial-card .author { font-weight: 600; color: var(--text-primary); font-style: normal; }
+        .testimonial-card .role { font-size: 0.78rem; color: var(--text-muted); font-style: normal; }
 
-        /* ========== 13. FOOTER ========== */
+        /* ========== 12. FOOTER ========== */
         .footer {
             background: var(--footer-bg);
             color: var(--text-primary);
             padding: 20px 40px;
             text-align: center;
-            backdrop-filter: blur(10px);
             border-top: 1px solid var(--border-color);
-            transition: background 0.3s, border 0.3s;
             margin-top: 20px;
         }
-        .footer-content {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            align-items: center;
-        }
-        .footer-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-item i {
-            font-size: 1.3rem;
-        }
-        .footer-item:hover {
-            color: #FFD700;
-        }
-        .footer p {
-            margin-top: 15px;
-            font-size: 0.85rem;
-            opacity: 0.7;
-            color: var(--text-muted);
-        }
+        .footer-content { max-width: 800px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 26px; align-items: center; }
+        .footer-item { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        .footer-item:hover { color: var(--highlight); }
+        .footer p.copy { margin-top: 15px; font-size: 0.82rem; opacity: 0.75; color: var(--text-muted); }
 
-        /* ========== 14. BACK TO TOP ========== */
+        /* ========== 13. BACK TO TOP ========== */
         #backToTop {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: #38bdf8;
+            bottom: 26px;
+            right: 26px;
+            width: 46px;
+            height: 46px;
+            background: var(--accent);
             color: #0f172a;
             border: none;
             border-radius: 50%;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.4);
             transition: all 0.3s ease;
             opacity: 0;
             visibility: hidden;
             transform: translateY(20px);
             z-index: 999;
         }
-        #backToTop.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        #backToTop:hover {
-            background: #0284c7;
-            color: white;
-            transform: scale(1.08);
-        }
+        #backToTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        #backToTop:hover { background: var(--accent-hover); color: white; transform: scale(1.08); }
 
-        /* ========== 15. RESPONSIVE ========== */
+        /* ========== 14. RESPONSIVE ========== */
         @media (max-width: 768px) {
-            .header {
-                grid-template-columns: 40px 1fr 40px;
-                padding: 10px 12px;
-            }
-            .toggle-btn,
-            .theme-toggle {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
-            }
-            .hero-text p {
-                font-size: 0.75rem;
-            }
-
-            .info-panel-left {
-                top: 70px;
-                width: 280px;
-                border-right: none;
-            }
-
-            .konten h1 {
-                font-size: 2rem;
-            }
-            .stats-grid {
-                gap: 15px 25px;
-                padding: 15px;
-            }
-            .stat-item span {
-                font-size: 1.8rem;
-            }
-            .about-section {
-                padding: 20px;
-            }
-            /* Buat grid about menjadi satu kolom di mobile */
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            .project-card {
-                width: 100%;
-                max-width: 380px;
-            }
-            .certificate-card {
-                width: 100%;
-                max-width: 300px;
-            }
-            .testimonial-card {
-                width: 100%;
-                max-width: 320px;
-            }
-            .footer-content {
-                gap: 15px;
-            }
-            #backToTop {
-                bottom: 20px;
-                right: 20px;
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
+            .header { grid-template-columns: 38px 1fr 38px; padding: 8px 12px; }
+            .icon-btn { width: 34px; height: 34px; font-size: 0.95rem; }
+            .hero-eyebrow p { font-size: 0.75rem; }
+            .konten h1 { font-size: 1.9rem; }
+            .stats-grid { gap: 10px; }
+            .stat-card p.value { font-size: 1.25rem; }
+            .about-section { padding: 20px; }
+            #backToTop { bottom: 18px; right: 18px; width: 42px; height: 42px; font-size: 1.15rem; }
         }
     </style>
 </head>
 
 <body>
+    <a href="#konten-utama" class="skip-link">Lompat ke konten utama</a>
 
     <!-- ========== HEADER ========== -->
     <header class="header">
-        <button class="toggle-btn" id="togglePanels" title="Tampilkan Info" aria-controls="infoPanel" aria-expanded="true">
-            <i class="fas fa-user"></i>
+        <button class="icon-btn" id="togglePanels" aria-label="Tampilkan atau sembunyikan panel info" aria-controls="infoPanel" aria-expanded="true">
+            <i class="fas fa-user" aria-hidden="true"></i>
         </button>
 
-        <!-- HERO TEXT (Typing Effect) -->
-        <div class="hero-text">
-            <p>
-                <span id="typing-text"></span>
-                <span class="typing-cursor" id="typing-cursor">|</span>
-            </p>
+        <div class="hero-eyebrow">
+            <p><span id="typing-text" lang="en"></span><span class="typing-cursor" id="typing-cursor" aria-hidden="true">|</span></p>
         </div>
 
-        <button class="theme-toggle" id="themeToggle" title="Ganti Mode">
-            <i class="fas fa-moon" id="themeIcon"></i>
+        <button class="icon-btn" id="themeToggle" aria-label="Ganti mode tampilan terang/gelap">
+            <i class="fas fa-moon" id="themeIcon" aria-hidden="true"></i>
         </button>
     </header>
+
+    <!-- Overlay untuk menutup sidebar di mobile (baru) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <!-- ========== SIDEBAR ========== -->
     <div class="info-panel-left" id="infoPanel">
         <div class="info-card">
-            <!-- Avatar Otomatis dari UI Avatars -->
-            <img src="https://ui-avatars.com/api/?name=Josua+Naibaho&background=38bdf8&color=fff&size=128&bold=true" alt="Josua Naibaho" />
+            <img src="https://ui-avatars.com/api/?name=Josua+Naibaho&background=38bdf8&color=fff&size=128&bold=true" alt="Foto profil Josua Alexander Naibaho" />
             <h3>Josua Alexander Naibaho</h3>
-            <p>💼 Data Analyst | BI | Visualization</p>
-            <p>📍 Jakarta Timur, Indonesia</p>
+            <p><i class="fas fa-briefcase" aria-hidden="true"></i> Data Analyst | BI | Visualisasi Data</p>
+            <p><i class="fas fa-location-dot" aria-hidden="true"></i> Jakarta Timur, Indonesia</p>
         </div>
 
-        <!-- Tombol Download CV -->
-        <a href="#" class="btn-cv" download>
-            <i class="fas fa-file-pdf"></i> Download CV
-        </a>
+        <!-- Widget kecil mengisi ruang kosong sidebar (baru) -->
+        <div class="sidebar-status">
+            <div class="sidebar-status-row"><span>Status</span><span class="sidebar-status-value">Open to work</span></div>
+            <div class="sidebar-status-row"><span>Fokus saat ini</span><span class="sidebar-status-value">BI &amp; Dashboarding</span></div>
+        </div>
 
-        <div style="margin-top: 5px; font-size:0.85rem; color:var(--text-muted); text-align:center; border-top:1px solid var(--border-color); padding-top:15px;">
-            <i class="fas fa-envelope"></i> josua@email.com
+        <!-- CV belum tersedia: tombol dinonaktifkan dengan jujur, bukan link mati -->
+        <button class="btn-cv" type="button" aria-disabled="true" title="CV belum diunggah">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i> Download CV
+        </button>
+
+        <div style="font-size:0.85rem; color:var(--text-muted); text-align:center; border-top:1px solid var(--border-color); padding-top:15px;">
+            <i class="fas fa-envelope" aria-hidden="true"></i> josua@email.com
         </div>
     </div>
 
     <!-- ========== KONTEN UTAMA ========== -->
-    <main class="konten">
+    <main class="konten" id="konten-utama">
 
-        <!-- HERO & STATS -->
+        <!-- HERO + STATS DENGAN SPARKLINE (redesign dashboard aesthetic) -->
         <section class="reveal">
             <h1>Hello, Welcome to My Portfolio!</h1>
-            <p>Transforming Raw Data into Strategic Decisions.</p>
+            <p class="lead" lang="en">Transforming Raw Data into Strategic Decisions.</p>
 
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span>5+</span>
-                    <p>Projects Completed</p>
+            <div class="stats-panel">
+                <div class="sparkline-row">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <span>Tren proyek 6 bulan terakhir</span>
                 </div>
-                <div class="stat-item">
-                    <span>2</span>
-                    <p>Years Experience</p>
-                </div>
-                <div class="stat-item">
-                    <span>10+</span>
-                    <p>Dashboards Built</p>
-                </div>
-                <div class="stat-item">
-                    <span>98%</span>
-                    <p>Data Accuracy</p>
+                <svg class="sparkline" viewBox="0 0 640 46" preserveAspectRatio="none" role="img" aria-label="Grafik tren jumlah proyek meningkat dalam 6 bulan terakhir">
+                    <polyline points="0,34 106,28 213,32 320,18 426,22 533,8 640,4" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="640" cy="4" r="4" fill="var(--accent)"/>
+                </svg>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <p class="label">Projects</p>
+                        <p class="value">5+</p>
+                        <div class="mini-bars" aria-hidden="true">
+                            <span style="height:40%"></span><span style="height:70%"></span><span style="height:55%"></span><span style="height:100%"></span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <p class="label">Years Experience</p>
+                        <p class="value">2</p>
+                        <div class="mini-bars" aria-hidden="true">
+                            <span style="height:55%"></span><span style="height:85%"></span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <p class="label">Dashboards Built</p>
+                        <p class="value">10+</p>
+                        <div class="mini-bars" aria-hidden="true">
+                            <span style="height:45%"></span><span style="height:90%"></span><span style="height:65%"></span>
+                        </div>
+                    </div>
+                    <div class="stat-card highlight">
+                        <p class="label">Data Accuracy</p>
+                        <p class="value">98%</p>
+                        <div class="progress-track"><div class="progress-fill" style="width:98%"></div></div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ========== ABOUT ME (REVISI TERBARU SESUAI PERMINTAAN) ========== -->
+        <!-- ========== ABOUT ME ========== -->
         <section class="about-section reveal">
             <h2>About Me</h2>
-            <p>
+            <p lang="en">
                 Hello! I am Josua Alexander Naibaho, a Data Analyst with a background in Economic Education. The combination of my foundational understanding of economics and the rigorous analytical skills I developed during a 6-month intensive Data Analytics program at RevoU enables me to not only process data accurately but also translate it into actionable business insights. I have a strong passion for data storytelling—transforming raw numbers into compelling narratives and strategic recommendations that are easily understood by all stakeholders.
             </p>
 
-            <!-- Grid 2 Kolom: Technical Skills (Kiri) dan Tools (Kanan) -->
-            <div class="about-grid">
-                <!-- Kolom Kiri: Technical Skills -->
-                <div class="tools-column">
-                    <h4><i class="fas fa-cogs"></i> Technical Skills</h4>
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Problem Solving</li>
-                        <li><i class="fas fa-check-circle"></i> Root Cause Analysis</li>
-                        <li><i class="fas fa-check-circle"></i> Exploratory Data Analysis (EDA)</li>
-                        <li><i class="fas fa-check-circle"></i> Statistics</li>
-                        <li><i class="fas fa-check-circle"></i> Hypothesis Testing</li>
-                        <li><i class="fas fa-check-circle"></i> Data Visualization &amp; Communication</li>
-                    </ul>
+            <div class="skills-block">
+                <h4><i class="fas fa-cogs" aria-hidden="true"></i> Technical Skills</h4>
+                <div class="skill-row">
+                    <div class="skill-row-top"><span>Data visualization &amp; storytelling</span><span class="level">Advanced</span></div>
+                    <div class="progress-track"><div class="progress-fill" style="width:90%"></div></div>
                 </div>
+                <div class="skill-row">
+                    <div class="skill-row-top"><span>Exploratory data analysis (EDA)</span><span class="level">Advanced</span></div>
+                    <div class="progress-track"><div class="progress-fill" style="width:85%"></div></div>
+                </div>
+                <div class="skill-row mid">
+                    <div class="skill-row-top"><span>Hypothesis testing &amp; statistics</span><span class="level">Intermediate</span></div>
+                    <div class="progress-track"><div class="progress-fill" style="width:65%"></div></div>
+                </div>
+                <div class="skill-row mid">
+                    <div class="skill-row-top"><span>Root cause analysis</span><span class="level">Intermediate</span></div>
+                    <div class="progress-track"><div class="progress-fill" style="width:70%"></div></div>
+                </div>
+            </div>
 
-                <!-- Kolom Kanan: Tools -->
-                <div class="tools-column">
-                    <h4><i class="fas fa-tools"></i> Tools</h4>
-                    <ul>
-                        <li><i class="fas fa-file-excel"></i> Excel / Google Sheets</li>
-                        <li><i class="fas fa-database"></i> MySQL</li>
-                        <li><i class="fab fa-python"></i> Python</li>
-                        <li><i class="fas fa-chart-bar"></i> Tableau</li>
-                        <li><i class="fas fa-chart-pie"></i> Power BI</li>
-                    </ul>
+            <div class="skills-block">
+                <h4><i class="fas fa-tools" aria-hidden="true"></i> Tools</h4>
+                <div class="tools-grid">
+                    <div class="tool-chip"><i class="fas fa-file-excel" aria-hidden="true"></i><p>Excel / Sheets</p></div>
+                    <div class="tool-chip"><i class="fas fa-database" aria-hidden="true"></i><p>MySQL</p></div>
+                    <div class="tool-chip"><i class="fab fa-python" aria-hidden="true"></i><p>Python</p></div>
+                    <div class="tool-chip"><i class="fas fa-chart-bar" aria-hidden="true"></i><p>Tableau</p></div>
+                    <div class="tool-chip"><i class="fas fa-chart-pie" aria-hidden="true"></i><p>Power BI</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- ========== RECENT WORK (DENGAN FILTER) ========== -->
+        <!-- ========== RECENT WORK ========== -->
         <section class="reveal">
-            <div class="filter-buttons" id="filterButtons">
-                <button class="filter-btn active" data-filter="all">📌 All</button>
-                <button class="filter-btn" data-filter="data">📊 Data Analytics</button>
-                <button class="filter-btn" data-filter="web">🌐 Web Dev</button>
-                <button class="filter-btn" data-filter="uiux">🎨 UI/UX</button>
+            <div class="filter-buttons" id="filterButtons" role="group" aria-label="Filter kategori proyek">
+                <button class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+                <button class="filter-btn" data-filter="data" aria-pressed="false">Data Analytics</button>
+                <button class="filter-btn" data-filter="web" aria-pressed="false">Web Dev</button>
+                <button class="filter-btn" data-filter="uiux" aria-pressed="false">UI/UX</button>
             </div>
 
             <details class="dropdown-container" open>
-                <summary>📁 Recent Work</summary>
+                <summary>Recent Work</summary>
                 <div class="projects-grid" id="projectsGrid">
 
-                    <!-- Proyek 1 - DATA -->
                     <div class="project-card" data-category="data">
-                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Campaign+Analysis" alt="Campaign Analysis">
+                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Campaign+Analysis" alt="Ilustrasi dashboard analisis kampanye" loading="lazy">
                         <div class="project-info">
                             <h3>Tokobli E-Commerce</h3>
-                            <p>Analysis of the most profitable campaign and the impact of layout changes on customer spending.</p>
-                            <div class="project-tags">
-                                <span>Data Cleaning</span><span>A/B Testing</span><span>Visualization</span>
-                            </div>
+                            <p class="desc" lang="en">Analysis of the most profitable campaign and the impact of layout changes on customer spending.</p>
+                            <div class="project-tags"><span>Data Cleaning</span><span>A/B Testing</span><span>Visualization</span></div>
                             <div class="project-tools">
-                                <h4><i class="fas fa-tools"></i> Tools</h4>
                                 <ul>
-                                    <li><i class="fas fa-file-excel"></i> Excel</li>
-                                    <li><i class="fab fa-python"></i> Python</li>
-                                    <li><i class="fas fa-chart-pie"></i> Tableau</li>
+                                    <li><i class="fas fa-file-excel" aria-hidden="true"></i> Excel</li>
+                                    <li><i class="fab fa-python" aria-hidden="true"></i> Python</li>
+                                    <li><i class="fas fa-chart-pie" aria-hidden="true"></i> Tableau</li>
                                 </ul>
                             </div>
                             <a href="https://josuaalexander02.github.io/campaign-product-analysis/" target="_blank" rel="noopener noreferrer" class="project-link">View Details</a>
                         </div>
                     </div>
 
-                    <!-- Proyek 2 - WEB -->
                     <div class="project-card" data-category="web">
-                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Weather+App" alt="Weather App">
+                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Weather+App" alt="Ilustrasi tampilan aplikasi cuaca" loading="lazy">
                         <div class="project-info">
                             <h3>Weather App</h3>
-                            <p>Real-time weather forecast using the OpenWeatherMap API.</p>
-                            <div class="project-tags">
-                                <span>React</span><span>API</span><span>CSS</span>
-                            </div>
+                            <p class="desc" lang="en">Real-time weather forecast using the OpenWeatherMap API.</p>
+                            <div class="project-tags"><span>React</span><span>API</span><span>CSS</span></div>
                             <div class="project-tools">
-                                <h4><i class="fas fa-tools"></i> Tools</h4>
                                 <ul>
-                                    <li><i class="fab fa-react"></i> React</li>
-                                    <li><i class="fas fa-cloud"></i> REST API</li>
+                                    <li><i class="fab fa-react" aria-hidden="true"></i> React</li>
+                                    <li><i class="fas fa-cloud" aria-hidden="true"></i> REST API</li>
                                 </ul>
                             </div>
-                            <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">View Details</a>
+                            <span class="project-link disabled" aria-disabled="true">Coming Soon</span>
                         </div>
                     </div>
 
-                    <!-- Proyek 3 - UIUX -->
                     <div class="project-card" data-category="uiux">
-                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Mobile+UI%2FUX" alt="UI/UX Mobile">
+                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Mobile+UI%2FUX" alt="Ilustrasi desain UI/UX aplikasi mobile" loading="lazy">
                         <div class="project-info">
                             <h3>Mobile UI/UX Design</h3>
-                            <p>Prototype of a food ordering mobile app with a user-centered approach.</p>
-                            <div class="project-tags">
-                                <span>Figma</span><span>Prototyping</span><span>User Flow</span>
-                            </div>
+                            <p class="desc" lang="en">Prototype of a food ordering mobile app with a user-centered approach.</p>
+                            <div class="project-tags"><span>Figma</span><span>Prototyping</span><span>User Flow</span></div>
                             <div class="project-tools">
-                                <h4><i class="fas fa-tools"></i> Tools</h4>
                                 <ul>
-                                    <li><i class="fab fa-figma"></i> Figma</li>
-                                    <li><i class="fas fa-pencil-ruler"></i> Wireframing</li>
+                                    <li><i class="fab fa-figma" aria-hidden="true"></i> Figma</li>
+                                    <li><i class="fas fa-pencil-ruler" aria-hidden="true"></i> Wireframing</li>
                                 </ul>
                             </div>
-                            <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">View Details</a>
+                            <span class="project-link disabled" aria-disabled="true">Coming Soon</span>
                         </div>
                     </div>
                 </div>
@@ -1019,46 +817,46 @@
         <!-- ========== SERTIFIKAT ========== -->
         <section class="reveal">
             <details class="dropdown-container">
-                <summary>📜 Certificates</summary>
+                <summary>Certificates</summary>
                 <div class="certificate-grid">
                     <div class="certificate-card">
-                        <i class="fas fa-certificate"></i>
+                        <i class="fas fa-certificate" aria-hidden="true"></i>
                         <h4>Data Science Professional</h4>
-                        <a href="#" target="_blank" rel="noopener noreferrer">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                        <span class="cert-pending">Tautan segera ditambahkan</span>
                     </div>
                     <div class="certificate-card">
-                        <i class="fas fa-certificate"></i>
+                        <i class="fas fa-certificate" aria-hidden="true"></i>
                         <h4>Google Data Analytics</h4>
-                        <a href="#" target="_blank" rel="noopener noreferrer">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                        <span class="cert-pending">Tautan segera ditambahkan</span>
                     </div>
                     <div class="certificate-card">
-                        <i class="fas fa-certificate"></i>
+                        <i class="fas fa-certificate" aria-hidden="true"></i>
                         <h4>Tableau Desktop Specialist</h4>
-                        <a href="#" target="_blank" rel="noopener noreferrer">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                        <span class="cert-pending">Tautan segera ditambahkan</span>
                     </div>
                 </div>
             </details>
         </section>
 
         <!-- ========== TESTIMONIALS ========== -->
-        <section class="reveal" style="max-width: 1000px; margin: 0 auto 40px;">
-            <h2 style="color: var(--text-primary); margin-bottom: 20px;">💬 Testimonials</h2>
+        <section class="reveal" style="max-width: 900px; margin: 0 auto 36px;">
+            <h2 style="color: var(--text-primary); margin-bottom: 18px; font-size:1.4rem;">Testimonials</h2>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
-                    <i class="fas fa-quote-left"></i>
-                    <p>Josua is extremely detail-oriented in data analysis. His insights helped our marketing team increase campaign ROI by 20%.</p>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
+                    <p lang="en">Josua is extremely detail-oriented in data analysis. His insights helped our marketing team increase campaign ROI by 20%.</p>
                     <div class="author">Andi Pratama</div>
                     <div class="role">Marketing Manager, Tokobli</div>
                 </div>
                 <div class="testimonial-card">
-                    <i class="fas fa-quote-left"></i>
-                    <p>His data visualization skills are outstanding. The dashboards Josua created are highly intuitive and made decision-making effortless.</p>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
+                    <p lang="en">His data visualization skills are outstanding. The dashboards Josua created are highly intuitive and made decision-making effortless.</p>
                     <div class="author">Siti Rahayu</div>
                     <div class="role">Head of BI, FinData Corp</div>
                 </div>
                 <div class="testimonial-card">
-                    <i class="fas fa-quote-left"></i>
-                    <p>Professional and punctual. Josua completed a complex EDA project in record time with accurate results.</p>
+                    <i class="fas fa-quote-left" aria-hidden="true"></i>
+                    <p lang="en">Professional and punctual. Josua completed a complex EDA project in record time with accurate results.</p>
                     <div class="author">Budi Santoso</div>
                     <div class="role">Senior Data Scientist, AI Labs</div>
                 </div>
@@ -1071,97 +869,75 @@
     <footer class="footer">
         <div class="footer-content">
             <a href="mailto:Josuaalexandernaibaho@gmail.com" class="footer-item">
-                <i class="fas fa-envelope"></i> Josuaalexandernaibaho@gmail.com
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" class="footer-item">
-                <i class="fas fa-globe"></i> Website
+                <i class="fas fa-envelope" aria-hidden="true"></i> Josuaalexandernaibaho@gmail.com
             </a>
             <a href="https://www.instagram.com/josua_naibaho01/" target="_blank" rel="noopener noreferrer" class="footer-item">
-                <i class="fab fa-instagram"></i> Instagram
+                <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
             </a>
             <a href="https://www.linkedin.com/in/josua-alexander/" target="_blank" rel="noopener noreferrer" class="footer-item">
-                <i class="fab fa-linkedin"></i> LinkedIn
+                <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
             </a>
         </div>
-        <p>&copy; 2026 Josua Alexander Naibaho. All rights reserved.</p>
+        <p class="copy">&copy; 2026 Josua Alexander Naibaho. All rights reserved.</p>
     </footer>
 
-    <!-- ========== BACK TO TOP BUTTON ========== -->
-    <button id="backToTop" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
+    <button id="backToTop" aria-label="Kembali ke atas halaman">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
 
-    <!-- ========== JAVASCRIPT ========== -->
     <script>
         // ==================== 1. TYPING EFFECT ====================
         const typingText = document.getElementById('typing-text');
-        const cursor = document.getElementById('typing-cursor');
         const roles = ['Data Analyst', 'Business Intelligence', 'Visualization Expert'];
-        let roleIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        let roleIndex = 0, charIndex = 0, isDeleting = false;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         function typeEffect() {
             const currentRole = roles[roleIndex];
             if (!isDeleting) {
-                // Mengetik
                 typingText.textContent = currentRole.substring(0, charIndex + 1);
                 charIndex++;
-                if (charIndex === currentRole.length) {
-                    isDeleting = true;
-                    setTimeout(typeEffect, 2000);
-                    return;
-                }
+                if (charIndex === currentRole.length) { isDeleting = true; setTimeout(typeEffect, 2000); return; }
                 setTimeout(typeEffect, 100);
             } else {
-                // Menghapus
                 typingText.textContent = currentRole.substring(0, charIndex - 1);
                 charIndex--;
-                if (charIndex === 0) {
-                    isDeleting = false;
-                    roleIndex = (roleIndex + 1) % roles.length;
-                    setTimeout(typeEffect, 500);
-                    return;
-                }
+                if (charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; setTimeout(typeEffect, 500); return; }
                 setTimeout(typeEffect, 50);
             }
         }
-        // Mulai typing setelah halaman dimuat
-        document.addEventListener('DOMContentLoaded', typeEffect);
+        if (prefersReducedMotion) {
+            typingText.textContent = roles[0];
+        } else {
+            document.addEventListener('DOMContentLoaded', typeEffect);
+        }
 
         // ==================== 2. SIDEBAR TOGGLE ====================
         const toggleBtn = document.getElementById('togglePanels');
         const body = document.body;
-        const infoPanel = document.getElementById('infoPanel');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-        toggleBtn.addEventListener('click', () => {
-            const isHidden = body.classList.toggle('sidebar-hidden');
-            toggleBtn.title = isHidden ? 'Tampilkan Info' : 'Sembunyikan Info';
-            toggleBtn.setAttribute('aria-expanded', !isHidden);
-        });
+        function setSidebar(hidden) {
+            body.classList.toggle('sidebar-hidden', hidden);
+            toggleBtn.setAttribute('aria-expanded', String(!hidden));
+        }
+        toggleBtn.addEventListener('click', () => setSidebar(!body.classList.contains('sidebar-hidden')));
+        sidebarOverlay.addEventListener('click', () => setSidebar(true));
 
         // ==================== 3. DARK / LIGHT MODE ====================
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
 
-        // Cek preferensi di localStorage
         if (localStorage.getItem('theme') === 'light') {
             body.classList.add('light-mode');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
         }
-
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('light-mode');
             const isLight = body.classList.contains('light-mode');
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
-            if (isLight) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-            }
+            themeIcon.classList.toggle('fa-moon', !isLight);
+            themeIcon.classList.toggle('fa-sun', isLight);
         });
 
         // ==================== 4. FILTER PROJEK ====================
@@ -1170,64 +946,46 @@
 
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active class
-                filterButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
+                filterButtons.forEach(b => b.setAttribute('aria-pressed', 'false'));
+                btn.setAttribute('aria-pressed', 'true');
                 const filter = btn.dataset.filter;
                 projectCards.forEach(card => {
-                    const category = card.dataset.category;
-                    if (filter === 'all' || category === filter) {
-                        card.style.display = 'flex';
-                        // Tambahkan animasi kecil
+                    const match = filter === 'all' || card.dataset.category === filter;
+                    card.style.display = match ? 'flex' : 'none';
+                    if (match && !prefersReducedMotion) {
                         card.style.animation = 'none';
-                        setTimeout(() => { card.style.animation = 'fadeIn 0.4s ease'; }, 10);
-                    } else {
-                        card.style.display = 'none';
+                        requestAnimationFrame(() => { card.style.animation = 'fadeIn 0.35s ease'; });
                     }
                 });
             });
         });
 
-        // Tambahkan keyframes untuk animasi filter (dinamis)
-        const styleSheet = document.createElement("style");
-        styleSheet.textContent = `
-                    @keyframes fadeIn {
-                        0% { opacity: 0; transform: scale(0.95); }
-                        100% { opacity: 1; transform: scale(1); }
-                    }
-                `;
-        document.head.appendChild(styleSheet);
-
-        // ==================== 5. SCROLL REVEAL (Intersection Observer) ====================
+        // ==================== 5. SCROLL REVEAL ====================
         const revealElements = document.querySelectorAll('.reveal');
-
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target); // berhenti mengamati setelah tampil (efisiensi)
                 }
             });
-        }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
         revealElements.forEach(el => revealObserver.observe(el));
 
-        // ==================== 6. BACK TO TOP ====================
+        // ==================== 6. BACK TO TOP (throttled dengan rAF) ====================
         const backToTopBtn = document.getElementById('backToTop');
-
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    backToTopBtn.classList.toggle('show', window.scrollY > 400);
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
-
         backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         });
     </script>
 
