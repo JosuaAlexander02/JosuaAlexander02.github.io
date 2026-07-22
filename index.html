@@ -3,297 +3,496 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- PERBAIKAN: SEO & Meta Data -->
     <title>Josua Naibaho | Data Analyst Portfolio</title>
     <meta name="description" content="Portfolio profesional Josua Alexander Naibaho - Data Analyst, Business Intelligence, dan Visualisasi Data." />
-    <meta property="og:title" content="Josua Naibaho | Data Analyst Portfolio" />
-    <meta property="og:type" content="website" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
-        * {
-            box-sizing: border-box;
+        /* ========== 1. CSS VARIABLES (UNTUK DARK/LIGHT MODE) ========== */
+        :root {
+            --bg-body: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-card-solid: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --header-bg: rgba(44, 62, 80, 0.9);
+            --footer-bg: rgba(44, 62, 80, 0.9);
+            --toggle-bg: rgba(255, 255, 255, 0.8);
+            --toggle-color: #2c3e50;
+            --marquee-bg: #ffffffcc;
+            --marquee-color: #2c3e50;
+            --skill-bg: rgba(255, 255, 255, 0.1);
+            --skill-fill: #38bdf8;
+            --cert-gradient: linear-gradient(135deg, #1e293b, #0f172a);
+            --filter-bg: rgba(255, 255, 255, 0.1);
+            --filter-active: #38bdf8;
+            --filter-text: #f1f5f9;
         }
 
-        /* PERBAIKAN: Latar gelap dipindah ke BODY, agar konsisten dan tidak terbuang */
-        body {
+        /* MODE TERANG (LIGHT MODE) */
+        body.light-mode {
+            --bg-body: radial-gradient(circle at center, #f0f9ff 0%, #e2e8f0 100%);
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --bg-card-solid: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #1e293b;
+            --text-muted: #475569;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --header-bg: rgba(255, 255, 255, 0.85);
+            --footer-bg: rgba(255, 255, 255, 0.85);
+            --toggle-bg: rgba(44, 62, 80, 0.8);
+            --toggle-color: #ffffff;
+            --marquee-bg: #1e293bcc;
+            --marquee-color: #f8fafc;
+            --skill-bg: rgba(0, 0, 0, 0.08);
+            --skill-fill: #0284c7;
+            --cert-gradient: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            --filter-bg: rgba(0, 0, 0, 0.05);
+            --filter-active: #0284c7;
+            --filter-text: #0f172a;
+        }
+
+        /* ========== 2. RESET & GLOBAL ========== */
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            background: var(--bg-body);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            color: #cbd5e1;
+            color: var(--text-secondary);
+            transition: background 0.4s ease, color 0.3s ease;
         }
 
-        /* ---------- HEADER (PERBAIKAN: GRID UNTUK RAPI) ---------- */
+        /* ========== 3. SCROLL REVEAL (DEFAULT SEMBUNYI) ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== 4. HEADER ========== */
         .header {
-            background: rgba(44, 62, 80, 0.9);
+            background: var(--header-bg);
             padding: 15px 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
-
-            /* PERBAIKAN: Pakai Grid, bukan absolute + padding hack */
             display: grid;
             grid-template-columns: 50px 1fr 50px;
             align-items: center;
             gap: 10px;
+            transition: background 0.3s ease;
         }
 
+        /* Tombol Toggle Sidebar */
         .toggle-btn {
-            /* PERBAIKAN: Hapus position:absolute, transform, top, left */
             justify-self: start;
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--toggle-bg);
             border: none;
             border-radius: 50%;
             width: 40px;
             height: 40px;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             cursor: pointer;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(5px);
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #2c3e50;
-            z-index: 110;
+            color: var(--toggle-color);
         }
-
         .toggle-btn:hover {
-            background: rgba(255, 255, 255, 1);
+            transform: scale(1.05);
         }
 
-        .textbox-marquee {
-            grid-column: 2; /* PERBAIKAN: Posisi tengah otomatis */
+        /* Tombol Dark Mode */
+        .theme-toggle {
+            justify-self: end;
+            background: var(--toggle-bg);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            transition: background 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--toggle-color);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.05) rotate(20deg);
+        }
+
+        /* Marquee diganti dengan Hero Text (Typing) */
+        .hero-text {
+            grid-column: 2;
             width: 100%;
-            background: #ffffffcc;
+            background: var(--marquee-bg);
             border-radius: 30px;
             padding: 12px 20px;
-            overflow: hidden;
-            white-space: nowrap;
+            text-align: center;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5px);
+            transition: background 0.3s;
         }
-
-        .textbox-marquee p {
-            display: inline-block;
+        .hero-text p {
             margin: 0;
-            padding-left: 100%;
-            animation: marquee 12s linear infinite;
             font-weight: bold;
-            color: #2c3e50;
+            color: var(--marquee-color);
             font-size: 1rem;
+            transition: color 0.3s;
         }
-
-        .textbox-marquee:hover p {
-            animation-play-state: paused;
+        .hero-text .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            margin-left: 2px;
+            background: var(--marquee-color);
+            animation: blink 0.8s step-end infinite;
         }
-
-        @keyframes marquee {
-            0% {
-                transform: translate(0, 0);
-            }
+        @keyframes blink {
+            0%,
             100% {
-                transform: translate(-100%, 0);
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
             }
         }
 
-        /* ---------- PANEL KIRI (PERBAIKAN: TRANSFORM UNTUK HALUS) ---------- */
+        /* ========== 5. SIDEBAR ========== */
         .info-panel-left {
             position: fixed;
             top: 80px;
             left: 0;
             bottom: 0;
-            width: 260px;
+            width: 280px;
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(12px);
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-            padding: 20px;
+            box-shadow: 2px 0 10px var(--shadow-color);
+            padding: 25px 20px;
             overflow-y: auto;
             z-index: 90;
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-
-            /* PERBAIKAN: Transisi hanya pada transform & opacity (paling halus) */
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+            border-right: 1px solid var(--border-color);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.35s ease,
+                background 0.3s ease;
             transform: translateX(0);
             opacity: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        body.light-mode .info-panel-left {
+            background: rgba(255, 255, 255, 0.9);
         }
 
-        /* PERBAIKAN: Sembunyikan dengan geser ke kiri, bukan width:0 */
         body.sidebar-hidden .info-panel-left {
             transform: translateX(-100%);
             opacity: 0;
-            pointer-events: none; /* Agar tidak bisa diklik saat tersembunyi */
+            pointer-events: none;
         }
 
         .info-card {
             text-align: center;
-            color: #f1f5f9;
+            color: var(--text-primary);
         }
-
         .info-card img {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            border: 3px solid rgba(56, 189, 248, 0.5);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             margin-bottom: 10px;
         }
-
         .info-card h3 {
-            margin: 5px 0;
-            font-size: 1.2rem;
-            color: #f8fafc;
+            font-size: 1.3rem;
+            color: var(--text-primary);
         }
-
         .info-card p {
-            margin: 3px 0;
             font-size: 0.9rem;
-            color: #94a3b8;
+            color: var(--text-muted);
+            margin: 5px 0;
         }
 
-        /* ---------- KONTEN UTAMA ---------- */
+        /* Tombol Download CV di Sidebar */
+        .btn-cv {
+            display: inline-block;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 5px;
+            border: none;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .btn-cv:hover {
+            background: #0284c7;
+            color: white;
+            transform: scale(1.02);
+        }
+        body.light-mode .btn-cv {
+            color: #fff;
+        }
+        body.light-mode .btn-cv:hover {
+            color: #fff;
+        }
+
+        /* ========== 6. KONTEN UTAMA ========== */
         .konten {
-            margin-left: 260px;
+            margin-left: 280px;
             padding: 40px 40px 20px;
             text-align: center;
             transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             flex: 1;
-            /* PERBAIKAN: Hapus background di sini, biar tembus ke body */
             background: transparent;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
         }
-
-        body.sidebar-hidden .konten {
-            margin-left: 0;
+        /* Saat sidebar muncul, konten di-desktop harus bergeser */
+        @media (min-width: 769px) {
+            .konten {
+                margin-left: 280px;
+                max-width: calc(1200px + 280px);
+            }
+            body.sidebar-hidden .konten {
+                margin-left: 0;
+                max-width: 1200px;
+            }
+        }
+        @media (max-width: 768px) {
+            .konten {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 20px 15px;
+            }
         }
 
         .konten h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.3em;
-            color: #f8fafc;
+            font-size: 2.8rem;
+            margin-bottom: 0.2em;
+            color: var(--text-primary);
+            transition: color 0.3s;
         }
-
         .konten>p {
             font-size: 1.2rem;
             margin-bottom: 30px;
+            color: var(--text-muted);
         }
 
-        /* ---------- ABOUT ME ---------- */
-        .about-section {
-            background: rgba(255, 255, 255, 0.05);
+        /* ========== 7. HERO STATS (METRIK) ========== */
+        .stats-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px 50px;
+            background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px 20px;
+            margin: 0 auto 40px;
+            max-width: 800px;
+            transition: background 0.3s, border 0.3s;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-item span {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #38bdf8;
+            line-height: 1.2;
+        }
+        .stat-item p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== 8. ABOUT ME ========== */
+        .about-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 30px 35px;
             margin: 0 auto 40px;
             max-width: 900px;
             text-align: left;
             line-height: 1.7;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: background 0.3s, border 0.3s, box-shadow 0.3s;
         }
-
         .about-section h2 {
             margin-top: 0;
-            color: #f8fafc;
+            color: var(--text-primary);
             text-align: center;
+            transition: color 0.3s;
+        }
+        .about-section p {
+            color: var(--text-secondary);
         }
 
-        .tools-grid {
+        /* SKILL PROGRESS BARS (Menggantikan list) */
+        .skills-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
-            margin: 20px 0 10px;
+            gap: 30px;
+            margin-top: 20px;
         }
-
-        .tools-column {
-            flex: 1 1 220px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 12px 18px;
-            border-left: 4px solid #38bdf8;
+        .skill-group {
+            flex: 1 1 200px;
         }
-
-        .tools-column h4 {
-            margin: 0 0 8px;
-            color: #f1f5f9;
+        .skill-group h4 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
             font-size: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
         }
-
-        .tools-column ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        .skill-item {
+            margin-bottom: 12px;
         }
-
-        .tools-column li {
-            margin: 4px 0;
-            font-size: 0.9rem;
+        .skill-item .skill-label {
             display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #cbd5e1;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
-
-        .tools-column li i {
+        .skill-item .skill-label i {
+            width: 18px;
             color: #38bdf8;
-            width: 1.2rem;
+        }
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background: var(--skill-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 4px;
+            transition: background 0.3s;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--skill-fill);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1s ease;
         }
 
-        /* ---------- DROPDOWN ---------- */
+        /* ========== 9. FILTER TOMBOL ========== */
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .filter-btn {
+            background: var(--filter-bg);
+            color: var(--filter-text);
+            border: 1px solid var(--border-color);
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .filter-btn.active {
+            background: var(--filter-active);
+            color: #0f172a;
+            border-color: var(--filter-active);
+        }
+        body.light-mode .filter-btn.active {
+            color: #fff;
+        }
+
+        /* ========== 10. DROPDOWN & PROJECT CARDS ========== */
         .dropdown-container {
             max-width: 1000px;
             margin: 0 auto 40px;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px var(--shadow-color);
             overflow: hidden;
+            transition: background 0.3s, border 0.3s;
         }
-
         .dropdown-container summary {
             list-style: none;
             cursor: pointer;
             padding: 18px 25px;
             font-size: 1.3rem;
             font-weight: bold;
-            color: #f1f5f9;
-            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
             display: flex;
             align-items: center;
             justify-content: space-between;
             transition: background 0.3s;
         }
-
         .dropdown-container summary::-webkit-details-marker {
             display: none;
         }
-
         .dropdown-container summary:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.06);
         }
-
         .dropdown-container summary::after {
             content: "\f107";
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             transition: transform 0.3s;
         }
-
         details[open] summary::after {
             transform: rotate(180deg);
         }
 
-        .projects-grid,
-        .certificate-grid {
+        .projects-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -301,90 +500,76 @@
             padding: 20px 25px;
         }
 
-        /* Kartu Proyek */
         .project-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px var(--shadow-color);
             overflow: hidden;
             width: 320px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border 0.3s;
             text-align: left;
             display: flex;
             flex-direction: column;
         }
-
         .project-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 14px 28px var(--shadow-color);
         }
-
         .project-card img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            /* PERBAIKAN: Fallback warna jika gambar gagal load */
             background-color: #1e293b;
+            border-bottom: 2px solid var(--border-color);
         }
-
         .project-info {
             padding: 20px;
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            color: #cbd5e1;
         }
-
         .project-info h3 {
             margin: 0 0 8px;
             font-size: 1.3rem;
-            color: #f1f5f9;
+            color: var(--text-primary);
         }
-
         .project-info p {
             font-size: 0.95rem;
-            color: #94a3b8;
+            color: var(--text-muted);
             margin: 0 0 12px;
         }
-
         .project-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 5px;
             margin-bottom: 12px;
         }
-
         .project-tags span {
-            background: rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-            font-size: 0.75rem;
+            background: var(--skill-bg);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
             padding: 4px 10px;
             border-radius: 15px;
             font-weight: 500;
         }
-
         .project-tools {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--skill-bg);
             border-radius: 10px;
             padding: 10px 12px;
             margin-bottom: 12px;
             font-size: 0.85rem;
-            color: #cbd5e1;
         }
-
         .project-tools h4 {
             margin: 0 0 6px;
+            color: var(--text-primary);
             font-size: 0.85rem;
-            color: #f1f5f9;
             display: flex;
             align-items: center;
             gap: 5px;
         }
-
         .project-tools ul {
             list-style: none;
             padding: 0;
@@ -393,19 +578,16 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-
         .project-tools li {
             display: flex;
             align-items: center;
             gap: 4px;
-            color: #cbd5e1;
+            color: var(--text-secondary);
         }
-
         .project-tools li i {
             font-size: 1rem;
             color: #38bdf8;
         }
-
         .project-link {
             display: inline-block;
             text-decoration: none;
@@ -415,51 +597,53 @@
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 600;
-            transition: background 0.3s;
+            transition: background 0.3s, color 0.3s;
             text-align: center;
             margin-top: auto;
         }
-
         .project-link:hover {
             background: #0284c7;
             color: white;
         }
 
-        /* ---------- SERTIFIKAT ---------- */
+        /* ========== 11. SERTIFIKAT ========== */
+        .certificate-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            padding: 20px 25px;
+        }
         .certificate-card {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
+            background: var(--cert-gradient);
             border-left: 6px solid #38bdf8;
             border-radius: 12px;
             padding: 15px 20px;
-            width: 280px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 260px;
+            box-shadow: 0 4px 10px var(--shadow-color);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
             text-align: left;
         }
-
         .certificate-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 20px var(--shadow-color);
         }
-
         .certificate-card i {
             font-size: 1.8rem;
             color: #38bdf8;
             margin-bottom: 8px;
         }
-
         .certificate-card h4 {
             margin: 0 0 6px;
-            color: #f1f5f9;
+            color: var(--text-primary);
             font-size: 1.1rem;
         }
-
         .certificate-card a {
             text-decoration: none;
-            color: #94a3b8;
+            color: var(--text-muted);
             font-weight: 500;
             font-size: 0.95rem;
             display: inline-flex;
@@ -467,22 +651,65 @@
             gap: 5px;
             transition: color 0.2s;
         }
-
         .certificate-card a:hover {
             color: #38bdf8;
         }
 
-        /* ---------- FOOTER ---------- */
+        /* ========== 12. TESTIMONIALS ========== */
+        .testimonials-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            padding: 10px 0 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .testimonial-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px 25px;
+            width: 280px;
+            text-align: left;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: background 0.3s, border 0.3s;
+        }
+        .testimonial-card i.fa-quote-left {
+            color: #38bdf8;
+            font-size: 1.4rem;
+            opacity: 0.6;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .testimonial-card p {
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0 0 10px;
+        }
+        .testimonial-card .author {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-style: normal;
+        }
+        .testimonial-card .role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: normal;
+        }
+
+        /* ========== 13. FOOTER ========== */
         .footer {
-            background: rgba(44, 62, 80, 0.9);
-            color: white;
+            background: var(--footer-bg);
+            color: var(--text-primary);
             padding: 20px 40px;
             text-align: center;
             backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 5;
+            border-top: 1px solid var(--border-color);
+            transition: background 0.3s, border 0.3s;
+            margin-top: 20px;
         }
-
         .footer-content {
             max-width: 800px;
             margin: 0 auto;
@@ -492,65 +719,119 @@
             gap: 30px;
             align-items: center;
         }
-
         .footer-item {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 1rem;
-            color: #f0f0f0;
+            color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.2s;
         }
-
         .footer-item i {
             font-size: 1.3rem;
         }
-
         .footer-item:hover {
             color: #FFD700;
         }
+        .footer p {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            color: var(--text-muted);
+        }
 
-        /* ---------- RESPONSIVE (PERBAIKAN: SIDEBAR TETAP FIXED & HALUS) ---------- */
+        /* ========== 14. BACK TO TOP ========== */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #38bdf8;
+            color: #0f172a;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 999;
+        }
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #backToTop:hover {
+            background: #0284c7;
+            color: white;
+            transform: scale(1.08);
+        }
+
+        /* ========== 15. RESPONSIVE ========== */
         @media (max-width: 768px) {
-            .info-panel-left {
-                top: 80px;
-                width: 280px; /* Lebar tetap, digeser dengan transform */
-                border-right: none;
-                border-bottom: none;
-                /* PERBAIKAN: Di mobile, posisi tetap fixed dan digeser, 
-                   tidak pakai relative/max-height sama sekali */
-            }
-
-            .konten {
-                margin-left: 0;
-                padding: 20px;
-            }
-
-            .info-card {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                text-align: left;
-            }
-
-            .info-card img {
-                width: 60px;
-                height: 60px;
-            }
-
-            /* PERBAIKAN: Header grid tetap rapi di mobile */
             .header {
                 grid-template-columns: 40px 1fr 40px;
-                padding: 10px 15px;
+                padding: 10px 12px;
             }
-            .toggle-btn {
+            .toggle-btn,
+            .theme-toggle {
                 width: 35px;
                 height: 35px;
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
-            .textbox-marquee p {
-                font-size: 0.8rem;
+            .hero-text p {
+                font-size: 0.75rem;
+            }
+
+            .info-panel-left {
+                top: 70px;
+                width: 280px;
+                border-right: none;
+            }
+
+            .konten h1 {
+                font-size: 2rem;
+            }
+            .stats-grid {
+                gap: 15px 25px;
+                padding: 15px;
+            }
+            .stat-item span {
+                font-size: 1.8rem;
+            }
+            .about-section {
+                padding: 20px;
+            }
+            .skills-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .project-card {
+                width: 100%;
+                max-width: 380px;
+            }
+            .certificate-card {
+                width: 100%;
+                max-width: 300px;
+            }
+            .testimonial-card {
+                width: 100%;
+                max-width: 320px;
+            }
+            .footer-content {
+                gap: 15px;
+            }
+            #backToTop {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -558,167 +839,249 @@
 
 <body>
 
-    <!-- HEADER -->
+    <!-- ========== HEADER ========== -->
     <header class="header">
         <button class="toggle-btn" id="togglePanels" title="Tampilkan Info" aria-controls="infoPanel" aria-expanded="true">
             <i class="fas fa-user"></i>
         </button>
-        <div class="textbox-marquee">
-            <p>✨ Selamat datang di portofolio saya! | Lihat proyek terbaru di bawah | Hubungi saya untuk kolaborasi ✨</p>
+
+        <!-- HERO TEXT (Typing Effect) -->
+        <div class="hero-text">
+            <p>
+                <span id="typing-text"></span>
+                <span class="typing-cursor" id="typing-cursor">|</span>
+            </p>
         </div>
-        <!-- PERBAIKAN: Kolom kanan kosong (grid ke-3) agar marquee tetap sentris -->
-        <div></div>
+
+        <button class="theme-toggle" id="themeToggle" title="Ganti Mode">
+            <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
     </header>
 
-    <!-- PANEL KIRI -->
+    <!-- ========== SIDEBAR ========== -->
     <div class="info-panel-left" id="infoPanel">
         <div class="info-card">
-            <img src="https://placehold.co/150/2c3e50/ffffff?text=Foto" alt="Foto Profil Josua">
+            <!-- Avatar Otomatis dari UI Avatars -->
+            <img src="https://ui-avatars.com/api/?name=Josua+Naibaho&background=38bdf8&color=fff&size=128&bold=true" alt="Josua Naibaho" />
             <h3>Josua Alexander Naibaho</h3>
-            <p>💼 Data Enthusiast | Data Analyst | Business Intelligence | Visualization</p>
+            <p>💼 Data Analyst | BI | Visualization</p>
             <p>📍 Jakarta Timur, Indonesia</p>
+        </div>
+
+        <!-- Tombol Download CV -->
+        <a href="#" class="btn-cv" download>
+            <i class="fas fa-file-pdf"></i> Download CV
+        </a>
+
+        <div style="margin-top: 5px; font-size:0.85rem; color:var(--text-muted); text-align:center; border-top:1px solid var(--border-color); padding-top:15px;">
+            <i class="fas fa-envelope"></i> josua@email.com
         </div>
     </div>
 
-    <!-- KONTEN UTAMA -->
+    <!-- ========== KONTEN UTAMA ========== -->
     <main class="konten">
-        <h1>Hello, Welcome to My Portfolio!</h1>
-        <p>Ini adalah kumpulan projek yang sudah pernah saya kerjakan.</p>
 
-        <!-- ABOUT ME -->
-        <div class="about-section">
+        <!-- HERO & STATS -->
+        <section class="reveal">
+            <h1>Hello, Welcome to My Portfolio!</h1>
+            <p>Mengubah Data Mentah menjadi Keputusan Strategis.</p>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span>5+</span>
+                    <p>Proyek Selesai</p>
+                </div>
+                <div class="stat-item">
+                    <span>2</span>
+                    <p>Tahun Pengalaman</p>
+                </div>
+                <div class="stat-item">
+                    <span>10+</span>
+                    <p>Dashboard Dibuat</p>
+                </div>
+                <div class="stat-item">
+                    <span>98%</span>
+                    <p>Akurasi Data</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== ABOUT ME (dengan Progress Bar) ========== -->
+        <section class="about-section reveal">
             <h2>About Me</h2>
             <p>Halo, nama saya <strong>Josua Alexander Naibaho</strong>. Saya adalah seorang Data Analyst yang berkembang dari perjalanan menyeimbangkan tanggung jawab pekerjaan operasional dan pendidikan akademis di jurusan Ekonomi. Pengalaman ini telah membentuk saya menjadi individu yang disiplin, tangguh, dan sangat berorientasi pada detail.</p>
             <p>Saat ini, saya menyalurkan dedikasi dan etos kerja tersebut ke dalam dunia data analytics untuk membantu bisnis mengubah data mentah menjadi keputusan yang strategis.</p>
 
-            <div class="tools-grid">
-                <div class="tools-column">
-                    <h4>🛠️ Tools Used</h4>
-                    <ul>
-                        <li><i class="fas fa-file-excel"></i> Excel</li>
-                        <li><i class="fas fa-database"></i> MySQL</li>
-                        <li><i class="fab fa-python"></i> Python</li>
-                        <li><i class="fas fa-chart-bar"></i> Tableau</li>
-                        <li><i class="fas fa-chart-pie"></i> Power BI</li>
-                    </ul>
-                </div>
-                <div class="tools-column">
-                    <h4>📌 I'm Familiar With</h4>
-                    <ul>
-                        <li>Data Cleaning & Manipulation</li>
-                        <li>Data Visualization</li>
-                        <li>Exploratory Data Analysis (EDA)</li>
-                        <li>Economic & Quantitative Analysis</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- RECENT WORK -->
-        <details class="dropdown-container" open>
-            <summary>📁 Recent Work</summary>
-            <div class="projects-grid">
-                <!-- Proyek 1 (PERBAIKAN: Pakai placeholder online + fallback) -->
-                <div class="project-card">
-                    <img src="https://placehold.co/320x200/1e293b/38bdf8?text=Campaign+Analysis" alt="Cover Campaign Product Analysis">
-                    <div class="project-info">
-                        <h3>Tokobli E-Commerce</h3>
-                        <p>The goal of this project was to find out which campaign was the most profitable among other twin date campaigns, as well as to analyze whether the new layout and the addition of the “Buy Now” button affected customer spending.</p>
-                        <div class="project-tags">
-                            <span>Data Cleaning</span>
-                            <span>Data Manipulation</span>
-                            <span>Data Visualization</span>
-                            <span>A/B Testing</span>
-                        </div>
-                        <div class="project-tools">
-                            <h4><i class="fas fa-tools"></i> Tools Used</h4>
-                            <ul>
-                                <li><i class="fas fa-file-excel"></i> Excel</li>
-                                <li><i class="fas fa-chart-bar"></i> Google Sheets</li>
-                                <li><i class="fab fa-python"></i> Python</li>
-                                <li><i class="fas fa-chart-pie"></i> Tableau</li>
-                            </ul>
-                        </div>
-                        <!-- PERBAIKAN: tambah rel="noopener" -->
-                        <a href="https://josuaalexander02.github.io/campaign-product-analysis/" class="project-link" target="_blank" rel="noopener noreferrer">Lihat Detail</a>
+            <!-- SKILLS PROGRESS BARS -->
+            <div class="skills-container">
+                <div class="skill-group">
+                    <h4>🛠️ Core Tools</h4>
+                    <div class="skill-item">
+                        <div class="skill-label"><span><i class="fas fa-file-excel"></i> Excel</span> <span>85%</span></div>
+                        <div class="progress-track"><div class="progress-fill" data-width="85"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span><i class="fas fa-database"></i> MySQL</span> <span>70%</span></div>
+                        <div class="progress-track"><div class="progress-fill" data-width="70"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span><i class="fab fa-python"></i> Python</span> <span>75%</span></div>
+                        <div class="progress-track"><div class="progress-fill" data-width="75"></div></div>
                     </div>
                 </div>
-
-                <!-- Proyek 2 -->
-                <div class="project-card">
-                    <img src="https://placehold.co/320x200/1e293b/38bdf8?text=Aplikasi+Cuaca" alt="Proyek Cuaca">
-                    <div class="project-info">
-                        <h3>Aplikasi Cuaca</h3>
-                        <p>Menampilkan prakiraan cuaca real-time menggunakan API.</p>
-                        <div class="project-tags">
-                            <span>React</span>
-                            <span>API</span>
-                            <span>CSS</span>
-                        </div>
-                        <div class="project-tools">
-                            <h4><i class="fas fa-tools"></i> Tools Used</h4>
-                            <ul>
-                                <li><i class="fab fa-react"></i> React</li>
-                                <li><i class="fas fa-code"></i> VS Code</li>
-                            </ul>
-                        </div>
-                        <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Lihat Detail</a>
+                <div class="skill-group">
+                    <h4>📊 Visualization</h4>
+                    <div class="skill-item">
+                        <div class="skill-label"><span><i class="fas fa-chart-bar"></i> Tableau</span> <span>90%</span></div>
+                        <div class="progress-track"><div class="progress-fill" data-width="90"></div></div>
                     </div>
-                </div>
-
-                <!-- Proyek 3 -->
-                <div class="project-card">
-                    <img src="https://placehold.co/320x200/1e293b/38bdf8?text=UI%2FUX+Mobile" alt="Proyek UI/UX">
-                    <div class="project-info">
-                        <h3>Desain UI/UX Mobile</h3>
-                        <p>Prototipe aplikasi mobile untuk pemesanan makanan.</p>
-                        <div class="project-tags">
-                            <span>Figma</span>
-                            <span>UI/UX</span>
-                            <span>Prototyping</span>
-                        </div>
-                        <div class="project-tools">
-                            <h4><i class="fas fa-tools"></i> Tools Used</h4>
-                            <ul>
-                                <li><i class="fab fa-figma"></i> Figma</li>
-                            </ul>
-                        </div>
-                        <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">Lihat Detail</a>
+                    <div class="skill-item">
+                        <div class="skill-label"><span><i class="fas fa-chart-pie"></i> Power BI</span> <span>80%</span></div>
+                        <div class="progress-track"><div class="progress-fill" data-width="80"></div></div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-label"><span><i class="fas fa-chart-line"></i> Looker Studio</span> <span>65%</span></div>
+                        <div class="progress-track"><div class="progress-fill" data-width="65"></div></div>
                     </div>
                 </div>
             </div>
-        </details>
+        </section>
 
-        <!-- SERTIFIKAT -->
-        <details class="dropdown-container">
-            <summary>📜 Sertifikat</summary>
-            <div class="certificate-grid">
-                <div class="certificate-card">
-                    <i class="fas fa-certificate"></i>
-                    <h4>Data Science Professional</h4>
-                    <a href="#" target="_blank" rel="noopener noreferrer">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
+        <!-- ========== RECENT WORK (DENGAN FILTER) ========== -->
+        <section class="reveal">
+            <div class="filter-buttons" id="filterButtons">
+                <button class="filter-btn active" data-filter="all">📌 Semua</button>
+                <button class="filter-btn" data-filter="data">📊 Data Analytics</button>
+                <button class="filter-btn" data-filter="web">🌐 Web Dev</button>
+                <button class="filter-btn" data-filter="uiux">🎨 UI/UX</button>
+            </div>
+
+            <details class="dropdown-container" open>
+                <summary>📁 Recent Work</summary>
+                <div class="projects-grid" id="projectsGrid">
+
+                    <!-- Proyek 1 - DATA -->
+                    <div class="project-card" data-category="data">
+                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Campaign+Analysis" alt="Campaign Analysis">
+                        <div class="project-info">
+                            <h3>Tokobli E-Commerce</h3>
+                            <p>Analisis campaign paling profitabel dan pengaruh layout terhadap spending customer.</p>
+                            <div class="project-tags">
+                                <span>Data Cleaning</span><span>A/B Testing</span><span>Visualization</span>
+                            </div>
+                            <div class="project-tools">
+                                <h4><i class="fas fa-tools"></i> Tools</h4>
+                                <ul>
+                                    <li><i class="fas fa-file-excel"></i> Excel</li>
+                                    <li><i class="fab fa-python"></i> Python</li>
+                                    <li><i class="fas fa-chart-pie"></i> Tableau</li>
+                                </ul>
+                            </div>
+                            <a href="https://josuaalexander02.github.io/campaign-product-analysis/" target="_blank" rel="noopener noreferrer" class="project-link">Lihat Detail</a>
+                        </div>
+                    </div>
+
+                    <!-- Proyek 2 - WEB -->
+                    <div class="project-card" data-category="web">
+                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Aplikasi+Cuaca" alt="Aplikasi Cuaca">
+                        <div class="project-info">
+                            <h3>Aplikasi Cuaca</h3>
+                            <p>Menampilkan prakiraan cuaca real-time menggunakan API OpenWeatherMap.</p>
+                            <div class="project-tags">
+                                <span>React</span><span>API</span><span>CSS</span>
+                            </div>
+                            <div class="project-tools">
+                                <h4><i class="fas fa-tools"></i> Tools</h4>
+                                <ul>
+                                    <li><i class="fab fa-react"></i> React</li>
+                                    <li><i class="fas fa-cloud"></i> REST API</li>
+                                </ul>
+                            </div>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">Lihat Detail</a>
+                        </div>
+                    </div>
+
+                    <!-- Proyek 3 - UIUX -->
+                    <div class="project-card" data-category="uiux">
+                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=UI%2FUX+Mobile" alt="UI/UX Mobile">
+                        <div class="project-info">
+                            <h3>Desain UI/UX Mobile</h3>
+                            <p>Prototipe aplikasi mobile untuk pemesanan makanan dengan pendekatan user-centered.</p>
+                            <div class="project-tags">
+                                <span>Figma</span><span>Prototyping</span><span>User Flow</span>
+                            </div>
+                            <div class="project-tools">
+                                <h4><i class="fas fa-tools"></i> Tools</h4>
+                                <ul>
+                                    <li><i class="fab fa-figma"></i> Figma</li>
+                                    <li><i class="fas fa-pencil-ruler"></i> Wireframing</li>
+                                </ul>
+                            </div>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">Lihat Detail</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="certificate-card">
-                    <i class="fas fa-certificate"></i>
-                    <h4>Google Data Analytics</h4>
-                    <a href="#" target="_blank" rel="noopener noreferrer">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
+            </details>
+        </section>
+
+        <!-- ========== SERTIFIKAT ========== -->
+        <section class="reveal">
+            <details class="dropdown-container">
+                <summary>📜 Sertifikat</summary>
+                <div class="certificate-grid">
+                    <div class="certificate-card">
+                        <i class="fas fa-certificate"></i>
+                        <h4>Data Science Professional</h4>
+                        <a href="#" target="_blank" rel="noopener noreferrer">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                    <div class="certificate-card">
+                        <i class="fas fa-certificate"></i>
+                        <h4>Google Data Analytics</h4>
+                        <a href="#" target="_blank" rel="noopener noreferrer">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                    <div class="certificate-card">
+                        <i class="fas fa-certificate"></i>
+                        <h4>Tableau Desktop Specialist</h4>
+                        <a href="#" target="_blank" rel="noopener noreferrer">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
+                    </div>
                 </div>
-                <div class="certificate-card">
-                    <i class="fas fa-certificate"></i>
-                    <h4>Tableau Desktop Specialist</h4>
-                    <a href="#" target="_blank" rel="noopener noreferrer">Lihat Sertifikat <i class="fas fa-external-link-alt"></i></a>
+            </details>
+        </section>
+
+        <!-- ========== TESTIMONIALS ========== -->
+        <section class="reveal" style="max-width: 1000px; margin: 0 auto 40px;">
+            <h2 style="color: var(--text-primary); margin-bottom: 20px;">💬 Testimonial</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Josua sangat detail dalam menganalisis data. Insight yang dia berikan membantu tim marketing meningkatkan ROI campaign hingga 20%.</p>
+                    <div class="author">Andi Pratama</div>
+                    <div class="role">Marketing Manager, Tokobli</div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Kemampuan visualisasi datanya luar biasa. Dashboard yang dibuat Josua sangat intuitif dan memudahkan manajemen mengambil keputusan.</p>
+                    <div class="author">Siti Rahayu</div>
+                    <div class="role">Head of BI, FinData Corp</div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Profesional dan tepat waktu. Josua berhasil menyelesaikan proyek EDA yang kompleks dalam waktu singkat dengan hasil yang akurat.</p>
+                    <div class="author">Budi Santoso</div>
+                    <div class="role">Senior Data Scientist, AI Labs</div>
                 </div>
             </div>
-        </details>
+        </section>
+
     </main>
 
-    <!-- FOOTER -->
+    <!-- ========== FOOTER ========== -->
     <footer class="footer">
         <div class="footer-content">
-            <a href="mailto:Josuaalexandernaibaho@gmail.com" class="footer-item email-link">
-                Josuaalexandernaibaho@gmail.com
+            <a href="mailto:Josuaalexandernaibaho@gmail.com" class="footer-item">
+                <i class="fas fa-envelope"></i> Josuaalexandernaibaho@gmail.com
             </a>
-            <a href="#" class="footer-item" target="_blank" rel="noopener noreferrer">
+            <a href="#" target="_blank" rel="noopener noreferrer" class="footer-item">
                 <i class="fas fa-globe"></i> Website
             </a>
             <a href="https://www.instagram.com/josua_naibaho01/" target="_blank" rel="noopener noreferrer" class="footer-item">
@@ -728,21 +1091,173 @@
                 <i class="fab fa-linkedin"></i> LinkedIn
             </a>
         </div>
-        <p style="margin-top:15px; font-size:0.85rem; opacity:0.8;">&copy; 2026 Josua Alexander Naibaho. All rights reserved.</p>
+        <p>&copy; 2026 Josua Alexander Naibaho. All rights reserved.</p>
     </footer>
 
+    <!-- ========== BACK TO TOP BUTTON ========== -->
+    <button id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ========== JAVASCRIPT ========== -->
     <script>
+        // ==================== 1. TYPING EFFECT ====================
+        const typingText = document.getElementById('typing-text');
+        const cursor = document.getElementById('typing-cursor');
+        const roles = ['Data Analyst', 'Business Intelligence', 'Visualization Expert'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
+            if (!isDeleting) {
+                // Mengetik
+                typingText.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === currentRole.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, 2000);
+                    return;
+                }
+                setTimeout(typeEffect, 100);
+            } else {
+                // Menghapus
+                typingText.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    setTimeout(typeEffect, 500);
+                    return;
+                }
+                setTimeout(typeEffect, 50);
+            }
+        }
+        // Mulai typing setelah halaman dimuat
+        document.addEventListener('DOMContentLoaded', typeEffect);
+
+        // ==================== 2. SIDEBAR TOGGLE ====================
         const toggleBtn = document.getElementById('togglePanels');
         const body = document.body;
         const infoPanel = document.getElementById('infoPanel');
 
         toggleBtn.addEventListener('click', () => {
             const isHidden = body.classList.toggle('sidebar-hidden');
-
-            // PERBAIKAN: Update title dan aksesibilitas (aria-expanded)
             toggleBtn.title = isHidden ? 'Tampilkan Info' : 'Sembunyikan Info';
             toggleBtn.setAttribute('aria-expanded', !isHidden);
         });
+
+        // ==================== 3. DARK / LIGHT MODE ====================
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+
+        // Cek preferensi di localStorage
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const isLight = body.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            if (isLight) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+
+        // ==================== 4. FILTER PROJEK ====================
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active class
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+                projectCards.forEach(card => {
+                    const category = card.dataset.category;
+                    if (filter === 'all' || category === filter) {
+                        card.style.display = 'flex';
+                        // Tambahkan animasi kecil
+                        card.style.animation = 'none';
+                        setTimeout(() => { card.style.animation = 'fadeIn 0.4s ease'; }, 10);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Tambahkan keyframes untuk animasi filter (dinamis)
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = `
+                    @keyframes fadeIn {
+                        0% { opacity: 0; transform: scale(0.95); }
+                        100% { opacity: 1; transform: scale(1); }
+                    }
+                `;
+        document.head.appendChild(styleSheet);
+
+        // ==================== 5. SCROLL REVEAL (Intersection Observer) ====================
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Animasi progress bar saat elemen about terlihat
+                    const progressFills = entry.target.querySelectorAll('.progress-fill');
+                    if (progressFills.length) {
+                        progressFills.forEach(fill => {
+                            const width = fill.getAttribute('data-width');
+                            if (width) {
+                                setTimeout(() => {
+                                    fill.style.width = width + '%';
+                                }, 300);
+                            }
+                        });
+                    }
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ==================== 6. BACK TO TOP ====================
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ==================== 7. INIT PROGRESS BARS (untuk yang sudah terlihat saat load) ====================
+        // Jalankan sekali untuk elemen yang sudah terlihat di awal
+        setTimeout(() => {
+            document.querySelectorAll('.reveal.visible .progress-fill').forEach(fill => {
+                const width = fill.getAttribute('data-width');
+                if (width) fill.style.width = width + '%';
+            });
+        }, 500);
     </script>
 
 </body>
