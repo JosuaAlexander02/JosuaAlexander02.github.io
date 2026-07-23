@@ -682,29 +682,22 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <p class="label">Projects</p>
-                        <p class="value">5+</p>
+                        <p class="value">1</p>
                         <div class="mini-bars" aria-hidden="true">
                             <span style="height:40%"></span><span style="height:70%"></span><span style="height:55%"></span><span style="height:100%"></span>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <p class="label">Years Experience</p>
-                        <p class="value">2</p>
-                        <div class="mini-bars" aria-hidden="true">
-                            <span style="height:55%"></span><span style="height:85%"></span>
-                        </div>
+                    <div class="stat-card highlight">
+                        <p class="label">Certificates</p>
+                        <p class="value">1</p>
+                        <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
                     </div>
                     <div class="stat-card">
                         <p class="label">Dashboards Built</p>
-                        <p class="value">10+</p>
+                        <p class="value">1</p>
                         <div class="mini-bars" aria-hidden="true">
                             <span style="height:45%"></span><span style="height:90%"></span><span style="height:65%"></span>
                         </div>
-                    </div>
-                    <div class="stat-card highlight">
-                        <p class="label">Data Accuracy</p>
-                        <p class="value">98%</p>
-                        <div class="progress-track"><div class="progress-fill" style="width:98%"></div></div>
                     </div>
                 </div>
             </div>
@@ -751,19 +744,22 @@
 
         <!-- ========== RECENT WORK ========== -->
         <section class="reveal">
+            <!-- Filter kategori disembunyikan sementara: baru ada 1 proyek, filter belum relevan.
+            Aktifkan kembali blok ini nanti kalau jumlah proyek sudah beragam kategori.
             <div class="filter-buttons" id="filterButtons" role="group" aria-label="Filter kategori proyek">
                 <button class="filter-btn" data-filter="all" aria-pressed="true">All</button>
                 <button class="filter-btn" data-filter="data" aria-pressed="false">Data Analytics</button>
                 <button class="filter-btn" data-filter="web" aria-pressed="false">Web Dev</button>
                 <button class="filter-btn" data-filter="uiux" aria-pressed="false">UI/UX</button>
             </div>
+            -->
 
             <details class="dropdown-container" open>
                 <summary>Recent Work</summary>
                 <div class="projects-grid" id="projectsGrid">
 
                     <div class="project-card" data-category="data">
-                        <img src="/assets/images/cover-project-1.png" alt="Campaign Performa Analysis" loading="lazy">
+                        <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Campaign+Analysis" alt="Ilustrasi dashboard analisis kampanye" loading="lazy">
                         <div class="project-info">
                             <h3>Tokobli E-Commerce</h3>
                             <p class="desc" lang="en">Analysis of the most profitable campaign and the impact of layout changes on customer spending.</p>
@@ -778,6 +774,9 @@
                             <a href="https://josuaalexander02.github.io/campaign-product-analysis/" target="_blank" rel="noopener noreferrer" class="project-link">View Details</a>
                         </div>
                     </div>
+
+                    <!-- Proyek berikut disembunyikan sementara karena masih berstatus "Coming Soon".
+                    Hapus komentar ini saat proyeknya sudah siap dipublikasikan.
 
                     <div class="project-card" data-category="web">
                         <img src="https://placehold.co/320x180/1e293b/38bdf8?text=Weather+App" alt="Ilustrasi tampilan aplikasi cuaca" loading="lazy">
@@ -810,6 +809,7 @@
                             <span class="project-link disabled" aria-disabled="true">Coming Soon</span>
                         </div>
                     </div>
+                    -->
                 </div>
             </details>
         </section>
